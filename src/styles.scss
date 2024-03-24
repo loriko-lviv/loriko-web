@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+// Style libraries
+@tailwind base;
+@tailwind utilities;
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Montserrat:500,700");
+
+// Styles
+body {
+  font-family: Montserrat, sans-serif;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+h1 {
+  font-size: 28px;
+  position: relative;
+}
+

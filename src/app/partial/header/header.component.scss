@@ -1,0 +1,35 @@
+:host {
+  .header-information {
+    z-index: 10000;
+  }
+
+  header {
+    background: #ffffff;
+
+    nav {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background: url("/assets/blur-hospital-background.jpeg");
+      height: 600px;
+      background-size: cover;
+
+      .right-bar {
+        height: 100%;
+
+        img {
+          height: 550px;
+          object-fit: cover;
+        }
+      }
+
+      .left-bar {
+        flex: 1 1 50%;
+      }
+    }
+  }
+
+  a {
+    &.active {
+      color: #DFF8D5;
+    }
+  }
+}

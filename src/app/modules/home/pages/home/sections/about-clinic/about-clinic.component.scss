@@ -1,0 +1,17 @@
+:host {
+  .about-container {
+    .photo-container {
+    }
+
+    .text-container {
+      span {
+        display: inline-block;
+        font-size: 19px;
+        margin-bottom: 10px;
+        line-height: 25px;
+        font-weight: 300;
+        text-align: justify;
+      }
+    }
+  }
+}

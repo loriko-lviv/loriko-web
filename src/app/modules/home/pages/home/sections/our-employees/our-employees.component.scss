@@ -1,0 +1,25 @@
+.our-employees {
+  background: #fafafa;
+
+  .employee-item {
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    .photo {
+      img {
+        border: 2px solid #047404;
+        padding: 3px;
+      }
+    }
+
+    .name {
+      span {
+        font-size: 24px;
+
+        @media screen and (max-width: 670px) {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}

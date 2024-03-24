@@ -1,0 +1,15 @@
+:host {
+  section {
+    background-image: url("/assets/location_form_bg.png");
+
+    input {
+      box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+      outline: none;
+    }
+
+    img {
+      object-fit: cover;
+      pointer-events: none;
+    }
+  }
+}

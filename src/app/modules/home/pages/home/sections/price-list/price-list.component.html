@@ -1,0 +1,34 @@
+<section class="price-list flex flex-col items-center justify-center p-8 bg-background">
+  <h1 class="text-center">Ціни на послуги центру отоларингології та косметології</h1>
+  <table class="table-auto w-full text-sm text-left text-main-color dark:text-gray-400 max-w-[800px]">
+    <thead class="text-xs text-main-color uppercase">
+    <tr class="border-b border-t">
+      <th scope="col" class="px-6 py-3 text-xl font-semibold !text-dark">
+        НАЗВА
+      </th>
+      <th scope="col" class="px-6 py-3 text-xl font-semibold !text-dark text-end">
+        ЦІНА
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let item of priceList">
+      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        <td class="px-6 py-4 text-center text-xl font-semibold" colspan="2">
+          <h3>
+            {{item.account.title}}
+          </h3>
+        </td>
+      </tr>
+      <tr class="bg-white border-b" *ngFor="let service of item.services">
+        <th scope="row" class="px-6 py-4 font-medium">
+          {{service.title}}
+        </th>
+        <td class="px-6 py-4 whitespace-nowrap text-end">
+          ₴ {{service.price}}
+        </td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+</section>
