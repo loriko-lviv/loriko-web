@@ -1,0 +1,29 @@
+:host {
+  .separator {
+    position: relative;
+
+    mat-icon {
+      color: #047404;
+    }
+
+    .line-left {
+      content: '';
+      position: absolute;
+      top: 43%;
+      left: -65px;
+      width: 60px;
+      height: 1px;
+      background-color: #e0e0e0;
+    }
+
+    .line-right {
+      content: '';
+      position: absolute;
+      top: 43%;
+      right: -65px;
+      width: 60px;
+      height: 1px;
+      background-color: #e0e0e0;
+    }
+  }
+}

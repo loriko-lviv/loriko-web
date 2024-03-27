@@ -1,23 +1,23 @@
 <div class="header-information flex justify-end md:justify-center items-center py-4 px-4 bg-dark text-white gap-5 sticky top-0">
-  <div class="contacts text-[12px] flex justify-between items-center gap-2 w-full">
-    <div class="clinic-name block md:hidden text-white text-2xl">Лор і Ко</div>
-    <div class="phone flex items-center gap-2 hover:text-primary">
-      <div class="icon p-[5px] rounded-full flex justify-center items-center border-2 border-[#292929]">
-        <mat-icon class="text-primary !w-[16px] !h-[16px] text-[16px]">phone</mat-icon>
+  <div class="contacts text-[12px] flex justify-between md:justify-center items-center md:gap-4 w-full">
+    <div class="clinic-name block md:hidden text-white text-2xl flex-[1_1_50%]">Лор і Ко</div>
+    <div class="phone flex items-center gap-2 hover:text-primary md:flex group">
+      <div class="icon p-[5px] rounded-full flex justify-center items-center border border-white group-hover:border-primary">
+        <mat-icon class="!w-[16px] !h-[16px] text-[16px]">phone</mat-icon>
       </div>
       <a class="underline" href="tel:+38 068-075-61-46">+38 068-075-61-46</a>
     </div>
     <hr class="hidden md:block">
-    <div class="email items-center gap-2 hover:text-primary hidden md:flex">
-      <div class="icon p-[5px] rounded-full flex justify-center items-center border-2 border-[#292929]">
-        <mat-icon class="text-primary !w-[16px] !h-[16px] text-[16px]">mail</mat-icon>
+    <div class="email items-center gap-2 hover:text-primary hidden md:flex group">
+      <div class="icon p-[5px] rounded-full flex justify-center items-center border group-hover:border-primary">
+        <mat-icon class="!w-[16px] !h-[16px] text-[16px]">mail</mat-icon>
       </div>
-      <a class="underline" href="loriko.lviv@gmail.com">loriko.lviv@gmail.com </a>
+      <a class="underline" href="mailto:loriko.lviv@gmail.com">loriko.lviv@gmail.com </a>
     </div>
     <hr>
     <div class="location items-center gap-2 hidden md:flex">
-      <div class="icon p-[5px] rounded-full flex justify-center items-center border-2 border-[#292929]">
-        <mat-icon class="text-primary !w-[16px] !h-[16px] text-[16px]">location_on</mat-icon>
+      <div class="icon p-[5px] rounded-full flex justify-center items-center border border-white">
+        <mat-icon class="!w-[16px] !h-[16px] text-[16px]">location_on</mat-icon>
       </div>
       <span>м. Львів, вул. Наукова 13/1</span>
     </div>
@@ -29,8 +29,12 @@
       <div class="logo-container w-[250px]">
         <img src="/assets/logo_hd.png" alt="Лор і Ко">
       </div>
+      <div class="subtitle text-center">
+        <h2 class="font-bold text-dark">Приватна клініка</h2>
+        <h2 class="font-bold text-dark">оториноларингології та Косметології</h2>
+      </div>
       <div class="appointment-container">
-        <button class="rounded-md bg-green hover:bg-dark border-primary text-white p-2 text-[16px]">Записатися на прийом</button>
+        <button class="rounded-md bg-primary hover:bg-transparent text-white hover:text-primary border-2 border-primary p-2 text-[16px]">Записатися на прийом</button>
       </div>
     </div>
     <div class="right-bar hidden md:flex items-end">
