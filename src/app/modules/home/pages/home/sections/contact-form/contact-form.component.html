@@ -1,5 +1,5 @@
 <section class="px-6 flex flex-col md:flex-row justify-center md:justify-evenly">
-  <div class="location-container flex justify-center items-center flex-[1_1_60%] p-4 md:mr-[24px]">
+  <div class="location-container flex justify-center items-center flex-[1_1_50%] p-4 md:mr-[24px]">
     <div class="form-container max-w-[450px] min-w-[350px]">
       <app-section-title [title]="'Записатися на прийом'"></app-section-title>
       <form class="flex flex-col justify-between gap-8">
@@ -7,6 +7,13 @@
                class="w-full text-[16px] border-[1px] border-[#eeeeee] rounded-sm border-border-primary p-3 focus:border-primary">
         <input placeholder="Ваш телефон" type="tel"
                class="w-full text-[16px] border-[1px] border-[#eeeeee] rounded-sm border-border-primary p-3 focus:border-primary">
+        <div class="select-wrapper">
+          <select name="service" id="service" class="w-full text-[16px] border-[1px] border-[#eeeeee] rounded-sm border-border-primary p-3 focus:!border-primary">
+            <option value="service">Послуга</option>
+            <option value="service">Отоларинголога</option>
+            <option value="service">Косметолога</option>
+          </select>
+        </div>
         <div class="info flex gap-2 items-center">
           <mat-icon class="text-primary text-[12px] !h-[12px] !w-[12px]">info</mat-icon>
           <span class="text-[12px]">Ми ніколи не розголошуватимемо вашу особисту інформацію</span>
@@ -16,7 +23,7 @@
       </form>
     </div>
   </div>
-  <div class="map flex-[1_1_40%] hidden md:block">
-    <img class="h-[450px]" src="/assets/l-kar-otorinolaringolog-1.png" alt="Раба Богдан Мирославович">
+  <div class="map flex-[1_1_50%] hidden md:flex md:justify-center">
+    <img class="h-[450px]" src="/assets/l-kar-kosmetolog-removebg.png" alt="Раба Богдан Мирославович">
   </div>
 </section>

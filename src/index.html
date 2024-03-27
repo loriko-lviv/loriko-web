@@ -5,32 +5,19 @@
   <title>Приватна клініка отоларингології і косметології “ЛОР і Ко”</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="assets/logo.ico">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script type="module">
-    // Import the functions you need from the SDKs you need
-    import {initializeApp} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-    import {getAnalytics} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
+    window.dataLayer = window.dataLayer || [];
 
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-      apiKey: "AIzaSyAO8Ka6AgNvS2TeA1pJgTQbijpE2z74T1Y",
-      authDomain: "loriko-c3fc0.firebaseapp.com",
-      projectId: "loriko-c3fc0",
-      storageBucket: "loriko-c3fc0.appspot.com",
-      messagingSenderId: "116902692917",
-      appId: "1:116902692917:web:03823979df897f6d83497c",
-      measurementId: "G-994Q3H3JKC"
-    };
+    function gtag() {
+      dataLayer.push(arguments);
+    }
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
+    gtag('js', new Date());
+    gtag('config', 'G-994Q3H3JKC');
   </script>
 </head>
 <body class="mat-typography">

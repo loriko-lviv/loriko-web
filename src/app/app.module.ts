@@ -8,6 +8,9 @@ import {FooterComponent} from './partial/footer/footer.component';
 import {MainLayoutComponent} from './layouts/main-layout/main-layout.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconModule} from "@angular/material/icon";
+import {environment} from "../environments/environment";
+import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
+import {AngularFireModule} from "@angular/fire/compat";
 
 @NgModule({
   declarations: [
@@ -20,6 +23,8 @@ import {MatIconModule} from "@angular/material/icon";
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
     MatIconModule,
   ],
   providers: [],
