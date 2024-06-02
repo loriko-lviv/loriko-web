@@ -52,6 +52,10 @@ export class ContactFormDialogComponent {
       });
   }
 
+  closeDialog(): void {
+    this.matDialogRef.close();
+  }
+
   private openSnackBar() {
     this.snackBar.open('Заявка була успішно відправлена', undefined, {
       duration: this.durationInSeconds * 1000,
