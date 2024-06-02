@@ -9,4 +9,7 @@ export const environment = {
     appId: "1:116902692917:web:03823979df897f6d83497c",
     measurementId: "G-994Q3H3JKC"
   },
+  telegramBotToken: "AAEOiDfAJDFIy5y-beyUxV5dtcIKhPIdWuc",
+  telegramBotId: "7017336741",
+  telegramChatId: "-1002093928888",
 }

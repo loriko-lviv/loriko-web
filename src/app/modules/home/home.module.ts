@@ -9,9 +9,16 @@ import {AvailabilityTimeComponent} from "./pages/home/sections/availability-time
 import {ContactFormComponent} from "./pages/home/sections/contact-form/contact-form.component";
 import {MatIconModule} from "@angular/material/icon";
 import {SectionTitleModule} from "../../shared/section-title/section-title.module";
+import {
+  AdditionalInformationComponent
+} from './pages/home/sections/additional-information/additional-information.component';
+import {NgxMaskDirective} from "ngx-mask";
+import {HttpClientModule} from "@angular/common/http";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
-  imports: [HomeRouting, CommonModule, MatIconModule, SectionTitleModule],
+  imports: [HomeRouting, CommonModule, MatIconModule, SectionTitleModule, NgxMaskDirective, HttpClientModule, ReactiveFormsModule, MatSnackBarModule],
   declarations: [
     HomeComponent,
     OurEmployeesComponent,
@@ -19,6 +26,7 @@ import {SectionTitleModule} from "../../shared/section-title/section-title.modul
     AboutClinicComponent,
     AvailabilityTimeComponent,
     ContactFormComponent,
+    AdditionalInformationComponent,
   ],
   providers: [],
 })

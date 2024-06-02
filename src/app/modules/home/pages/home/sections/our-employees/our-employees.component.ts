@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-our-employees',
@@ -6,5 +7,34 @@ import { Component } from '@angular/core';
   styleUrls: ['./our-employees.component.scss']
 })
 export class OurEmployeesComponent {
+  constructor(private router: Router) {
+  }
 
+  readonly employees = [
+    {
+      firstname: 'Богдан Мирославович',
+      lastname: 'Раба',
+      description: 'Лікар-отоларинголог. Стаж більше 10 років',
+      router: ['/doctors', 'raba-bohdan'],
+      imageUrl: '/assets/l-kar-otorinolaringolog-back.png',
+    },
+    {
+      firstname: 'Галина Іванівна',
+      lastname: 'Раба',
+      description: 'Лікар-косметолог. Стаж більше 10 років',
+      router: ['/doctors', 'raba-galia'],
+      imageUrl: '/assets/l-kar-kosmetolog.png',
+    },
+    {
+      firstname: 'Христина Вікторівна',
+      lastname: 'Коротіна',
+      description: 'Лікар-отоларинголог. Стаж більше 2 років',
+      router: ['/doctors', 'korotina-khristina'],
+      imageUrl: '/assets/korotina_kh.png',
+    }
+  ]
+
+  redirectToDoctorPage(router: string[]): void {
+    this.router.navigate(router).then();
+  }
 }

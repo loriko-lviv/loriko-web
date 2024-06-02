@@ -11,6 +11,9 @@ import {MatIconModule} from "@angular/material/icon";
 import {environment} from "../environments/environment";
 import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import {AngularFireModule} from "@angular/fire/compat";
+import {provideEnvironmentNgxMask} from "ngx-mask";
+import {DoctorsLayoutComponent} from './layouts/doctors-layout/doctors-layout.component';
+import {HeaderNavComponent} from "./shared/header-nav/header-nav.component";
 
 @NgModule({
   declarations: [
@@ -18,6 +21,7 @@ import {AngularFireModule} from "@angular/fire/compat";
     HeaderComponent,
     FooterComponent,
     MainLayoutComponent,
+    DoctorsLayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,8 +30,11 @@ import {AngularFireModule} from "@angular/fire/compat";
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     MatIconModule,
+    HeaderNavComponent,
   ],
-  providers: [],
+  providers: [
+    provideEnvironmentNgxMask(),
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
