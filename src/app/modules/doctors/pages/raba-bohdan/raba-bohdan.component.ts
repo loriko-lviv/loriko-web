@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {ContactFormDialogComponent} from "../../../../shared/dialogs/contact-form-dialog/contact-form-dialog.component";
+import {Meta} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-raba-bohdan',
@@ -9,7 +10,8 @@ import {ContactFormDialogComponent} from "../../../../shared/dialogs/contact-for
 })
 export class RabaBohdanComponent {
 
-  constructor(private dialog: MatDialog) {
+  constructor(private dialog: MatDialog, private meta: Meta) {
+    this.meta.addTag({ name: 'description', content: 'Раба Богдан Мирославович. Лікар-отоларинголог.' });
   }
 
   openContactDialog() {
