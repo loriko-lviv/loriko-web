@@ -16,9 +16,10 @@ import {NgxMaskDirective} from "ngx-mask";
 import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
-  imports: [HomeRouting, CommonModule, MatIconModule, SectionTitleModule, NgxMaskDirective, HttpClientModule, ReactiveFormsModule, MatSnackBarModule],
+  imports: [HomeRouting, CommonModule, MatIconModule, SectionTitleModule, NgxMaskDirective, HttpClientModule, ReactiveFormsModule, MatSnackBarModule, MatInputModule],
   declarations: [
     HomeComponent,
     OurEmployeesComponent,

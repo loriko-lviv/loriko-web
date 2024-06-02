@@ -1,0 +1,28 @@
+<div class="dialog-container p-5 relative">
+  <div class="header">
+    <app-section-title title="Запис на прийом"></app-section-title>
+  </div>
+  <form class="flex flex-col justify-between gap-8" [formGroup]="form">
+    <input placeholder="Ваше імʼя" type="text" formControlName="name"
+           class="w-full text-[16px] border-[1px] border-[#eeeeee] rounded-sm border-border-primary p-3 focus:border-primary">
+    <input placeholder="Ваш телефон" formControlName="phone" type="tel" prefix="+380" [showMaskTyped]="true"
+           mask="(00) 0000 000"
+           class="w-full text-[16px] border-[1px] border-[#eeeeee] rounded-sm border-border-primary p-3 focus:border-primary">
+    <textarea cdkTextareaAutosize formControlName="wishes" cdkAutosizeMinRows="3" cdkAutosizeMaxRows="5"
+              class="w-full text-[16px] border-[1px] border-[#eeeeee] rounded-sm border-border-primary p-3 focus:border-primary"
+              placeholder="Ваші побажання"></textarea>
+    <div class="info flex gap-2 items-center">
+      <mat-icon class="text-primary text-[12px] !h-[15px] !w-[15px]">info</mat-icon>
+      <span class="text-[12px]">Ми ніколи не розголошуватимемо вашу особисту інформацію</span>
+    </div>
+    <button type="button" (click)="sendRequest()" [disabled]="form.invalid"
+            class="text-[16px] rounded-sm bg-primary p-2 text-white hover:bg-dark disabled:bg-[#b4b4b4]">
+      Передзвоніть мені
+    </button>
+  </form>
+  <div class="close-icon">
+    <button mat-icon-button>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>

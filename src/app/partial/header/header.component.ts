@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {ContactFormDialogComponent} from "../../shared/dialogs/contact-form-dialog/contact-form-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-header',
@@ -7,18 +9,10 @@ import {Component} from '@angular/core';
 })
 export class HeaderComponent {
 
-  scrollToElementById(id: string) {
-    const element = this.getElementById(id);
-    if (element) {
-      this.scrollToElement(element);
-    }
+  constructor(private dialog: MatDialog) {
   }
 
-  private getElementById(id: string): HTMLElement | null {
-    return document.getElementById(id);
-  }
-
-  private scrollToElement(element: HTMLElement) {
-    element.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'nearest'});
+  openContactDialog() {
+    this.dialog.open(ContactFormDialogComponent);
   }
 }

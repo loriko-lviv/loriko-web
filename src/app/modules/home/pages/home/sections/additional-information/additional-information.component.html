@@ -1,12 +1,12 @@
 <div class="section px-2 py-8 md:p-8">
   <div class="ent-container">
-    <h2 class="text-center">Консультація отоларинголога</h2>
-    <h3 class="text-center">Якщо у вас виник один з подібних симптомів, не затягуйте візит до ЛОРа:</h3>
-    <div class="information-container flex justify-between">
-      <div class="photo-container flex items-center">
-        <img src="assets/ent_doctor.png" alt="Отоларинголог">
+    <app-section-title [title]="'Консультація отоларинголога'"></app-section-title>
+    <div class="information-container flex flex-col md:flex-row justify-evenly">
+      <div class="photo-container mb-6 md:mb-0 flex items-center justify-center">
+        <img class="max-w-[350px] rounded-[12px]" src="assets/raba-bohdan.png" alt="Отоларинголог">
       </div>
-      <ul>
+      <ul class="flex flex-col justify-between p-4">
+        <h2 class="text-center">Якщо у вас виник один з подібних симптомів, не затягуйте візит до ЛОРа:</h2>
         <li><span>Біль у вухах, виділення з вуха;</span></li>
         <li><span>Погіршення слуху або нюху, втрата смаку;</span></li>
         <li><span>Неприємні відчуття в горлі і носоглотці;</span></li>
@@ -19,25 +19,26 @@
       </ul>
     </div>
   </div>
-  <div class="beauty-container">
-    <h2 class="text-center">Косметолог в клініці “ЛОР і Ко”</h2>
-    <div class="information-container flex flex-row-reverse justify-between">
-      <div class="photo-container flex items-center">
-        <img src="assets/ent_doctor.png" alt="Отоларинголог">
-      </div>
-      <div class="text">
-        <span>Професійно грамотний індивідуальний підбір лікувальних косметологічних процедур і косметологічних препаратів
+</div>
+<hr class="text-[#ebebeb]">
+<div class="section beauty-container px-2 py-8 md:p-8">
+  <app-section-title [title]="'Косметолог в клініці “ЛОР і Ко”'"></app-section-title>
+  <div class="information-container flex flex-col md:flex-row-reverse justify-evenly">
+    <div class="photo-container flex items-center mb-6 md:mb-0">
+      <img class="max-w-[350px] rounded-[12px]" src="assets/raba-bohdan.png" alt="Косметолог">
+    </div>
+    <div class="text max-w-[550px] p-4">
+        <p>Професійно грамотний індивідуальний підбір лікувальних косметологічних процедур і косметологічних препаратів
           –
           це кредо «ЛОР і Ко». Ми прагнемо враховувати бажання наших пацієнтів, які бажають зберегти природність і
-          природну міміку, і повернути молодість.</span>
-        <span>Естетична медицина і косметологія – основні напрямки нашої роботи. Фахівці клініки постійно розвиваються і
-          вдосконалюються для ефективного вирішення естетичних завдань пацієнтів.</span>
-        <span>У кожної людини в житті повинен бути свій лікар. Той, кому можна довірити найцінніше – здоров’я. Клініка
+          природну міміку, і повернути молодість.</p>
+      <p>Естетична медицина і косметологія – основні напрямки нашої роботи. Фахівці клініки постійно розвиваються і
+          вдосконалюються для ефективного вирішення естетичних завдань пацієнтів.</p>
+      <p>У кожної людини в житті повинен бути свій лікар. Той, кому можна довірити найцінніше – здоров’я. Клініка
           естетичної медицини і косметології «ЛОР і Ко» – це ваш особистий лікар. Якому ви можете цілком довіритися. І
-          якого ви можете рекомендувати рідним і близьким.</span>
-        <span>Лікарі клініки допоможуть повернути вам молодість, красу, стрункість, життєву енергію, впевненість в
-          собі.</span>
-      </div>
+          якого ви можете рекомендувати рідним і близьким.</p>
+      <p>Лікарі клініки допоможуть повернути вам молодість, красу, стрункість, життєву енергію, впевненість в
+          собі.</p>
     </div>
   </div>
 </div>

@@ -8,17 +8,21 @@
         <input placeholder="Ваш телефон" formControlName="phone" type="tel" prefix="+380" [showMaskTyped]="true"
                mask="(00) 0000 000"
                class="w-full text-[16px] border-[1px] border-[#eeeeee] rounded-sm border-border-primary p-3 focus:border-primary">
+        <textarea cdkTextareaAutosize formControlName="wishes" cdkAutosizeMinRows="3" cdkAutosizeMaxRows="5"
+          class="w-full text-[16px] border-[1px] border-[#eeeeee] rounded-sm border-border-primary p-3 focus:border-primary"
+          placeholder="Ваші побажання"></textarea>
         <div class="info flex gap-2 items-center">
-          <mat-icon class="text-primary text-[12px] !h-[12px] !w-[12px]">info</mat-icon>
+          <mat-icon class="text-primary text-[12px] !h-[15px] !w-[15px]">info</mat-icon>
           <span class="text-[12px]">Ми ніколи не розголошуватимемо вашу особисту інформацію</span>
         </div>
         <button type="button" (click)="sendRequest()" [disabled]="form.invalid"
-                class="text-[16px] rounded-sm bg-primary p-2 text-white hover:bg-dark disabled:bg-[#b4b4b4]">Передзвоніть мені
+                class="text-[16px] rounded-sm bg-primary p-2 text-white hover:bg-dark disabled:bg-[#b4b4b4]">
+          Передзвоніть мені
         </button>
       </form>
     </div>
   </div>
-  <div class="map flex-[1_1_50%] hidden md:flex md:justify-center">
+  <div class="map flex-[1_1_50%] hidden md:flex md:justify-center md:items-end">
     <img class="h-[450px]" src="/assets/l-kar-kosmetolog-removebg.png" alt="Раба Богдан Мирославович">
   </div>
 </section>

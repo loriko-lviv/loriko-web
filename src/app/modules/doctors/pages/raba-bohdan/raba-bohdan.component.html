@@ -1,1 +1,67 @@
-<p>raba-bohdan works!</p>
+<div class="doctor-container p-4 md:p-7">
+  <div class="base-info flex flex-col md:flex-row gap-6 md:gap-12 justify-center">
+    <div class="photo-container flex justify-center">
+      <img src="/assets/raba-bohdan.png" alt="Раба Богдан Мирославович" class="max-w-[300px] md:max-w-[360px] rounded-[12px]">
+    </div>
+    <div class="info-container py-4 flex justify-between flex-col gap-6 md:gap-0 items-center md:items-start">
+      <div class="name flex flex-col">
+        <span class="font-[600] text-[26px] mb-2 text-center md:text-start">Раба Богдан Мирославович</span>
+        <span class="text-[14px] text-[#666666] text-center md:text-start">лікар-отоларинголог</span>
+      </div>
+      <div class="experience flex flex-col">
+        <span class="text-[18px] text-primary mb-3 font-[600]">Стаж роботи</span>
+        <div class="text-primary font-[600] flex items-center">
+          <span class="text-[36px] mr-2">{{experience}}</span>
+          <span class="text-[22]">роки(-ів)</span>
+        </div>
+      </div>
+      <div class="book-attendance">
+        <button (click)="openContactDialog()"
+          class="rounded-md bg-primary hover:bg-transparent text-white hover:text-primary border-2 border-primary p-2 text-[16px]"
+        >Записатися на прийом
+        </button>
+      </div>
+      <div class="description text-[16px]">
+        <p class="text-center md:text-start max-w-[550px]">Освіта – вища медична, закінчив у 2008 р <a href="https://new.meduniv.lviv.ua/" target="_blank"
+                                                         class="text-primary underline hover:opacity-60">Львівський
+          Національний Медичний
+          Університет ім. Данила Галицького</a> за спеціальністю педіатрія.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="additional-info text-[16px] mt-6">
+    <div class="courses">
+      <p><strong class="text-[18px]">2008 - 2009</strong> – інтернатура за спеціальністю дитяча оториноларингологія на
+        базі кафедри дитячої оториноларингології
+        ЛНМУ ім. Данила Галицького і КНП Міська Дитяча Клінічна Лікарня;</p>
+      <p><strong class="text-[18px]">2011, травень</strong> – <a class="text-primary underline hover:opacity-80" target="_blank"
+                                                                 href="http://www.ents.com.ua/confdoc/2011_odesa.pdf">участь
+        в конференції</a> Українського
+        Наукового медичного товариства лікарів оториноларингологів – Одеса, Україна;</p>
+      <p><strong class="text-[18px]">2011, вересень</strong> – участь в VI Інтернаціональній Конференції по назальному
+        поліпозу – Київ, Україна;</p>
+      <p><strong class="text-[18px]">2012, травень</strong> – <a class="text-primary underline hover:opacity-80" target="_blank"
+                                                                 href="http://www.ents.com.ua/confdoc/2012_sudak.pdf">участь
+        в конференції</a>
+        Українського Наукового медичного товариства лікарів оториноларингологів – Судак, Україна;</p>
+      <p><strong class="text-[18px]">2012, серпень-вересень</strong> – стажування на базі відділення дитячої
+        оториноларингології <a class="text-primary underline hover:opacity-80" target="_blank"
+                               href="https://uk.wikipedia.org/wiki/%D0%9C%D0%B5%D0%B4%D0%B8%D1%87%D0%BD%D0%B8%D0%B9_%D1%83%D0%BD%D1%96%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82_%D1%83_%D0%91%D1%96%D0%BB%D0%BE%D1%81%D1%82%D0%BE%D1%86%D1%96">Медичного
+          Університету – Білосток</a>, Польща;</p>
+      <p><strong class="text-[18px]">2012, листопад</strong> – участь в II Конференції Отоларингології і Педіатрії –
+        Варшава, Польща;</p>
+      <p><strong class="text-[18px]">2014, серпень</strong> – майстер-клас Cochlear Nucleus Implant – Ганновер,
+        Німеччина;</p>
+      <p><strong class="text-[18px]">2016, травень</strong> – участь в конференції Українського Наукового медичного
+        товариства лікарів
+        оториноларингологів – Одеса, Україна;</p>
+      <p><strong class="text-[18px]">2017, травень</strong> – стажування на базі кафедри і клініки оториноларингології і
+        онкології отоларингологічної
+        Медичного Університету – Люблін, Польща;</p>
+      <p><strong class="text-[18px]">2017, жовтень</strong> – майстер-клас: хірургічні аспекти Baha на базі
+        республіканського науково-практичного центру
+        оториноларингології – Мінськ, Білорусь</p>
+    </div>
+  </div>
+</div>

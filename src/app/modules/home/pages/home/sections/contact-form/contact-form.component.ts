@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../../../../environments/environment";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {take} from "rxjs";
+import {RequestService} from "../../../../../../services/request.service";
 
 @Component({
   selector: 'app-contact-form',
@@ -15,21 +17,22 @@ export class ContactFormComponent {
   form = this.fb.group({
     name: new FormControl('', Validators.required),
     phone: new FormControl('', Validators.required),
+    wishes: new FormControl(''),
   })
 
-  constructor(private httpClient: HttpClient, private _snackBar: MatSnackBar, private fb: FormBuilder) {}
+  constructor(private _snackBar: MatSnackBar, private fb: FormBuilder, private requestService: RequestService) {
+  }
 
   sendRequest(): void {
-    const chatId = environment.telegramChatId;
-    const botId = environment.telegramBotId;
-    const botToken = environment.telegramBotToken;
-    this.httpClient.post(` https://api.telegram.org/bot${botId}:${botToken}/sendMessage`, {
-      chat_id: chatId,
-      text: `${this.form.get('name')?.value} залишив(-ла) заявку на сайті +380${this.form.get('phone')?.value}`
-    }).subscribe(() => {
-      this.form.reset();
-      this.openSnackBar();
-    })
+    this.requestService.sendRequest(
+      this.form.get('name')?.value as string,
+      this.form.get('phone')?.value as string,
+      this.form.get('wishes')?.value || '',
+    ).pipe(take(1))
+      .subscribe(() => {
+        this.form.reset();
+        this.openSnackBar();
+      });
   }
 
   private openSnackBar() {

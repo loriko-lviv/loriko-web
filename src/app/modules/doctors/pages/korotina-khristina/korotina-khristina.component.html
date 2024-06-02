@@ -1,1 +1,75 @@
-<p>zabrodska-khristina works!</p>
+<div class="doctor-container p-4 md:p-7">
+  <div class="base-info flex flex-col md:flex-row gap-6 md:gap-12">
+    <div class="photo-container flex justify-center">
+      <img src="/assets/korotina_kh.png" alt="Коротін Христина Вікторівна" class="max-w-[300px] md:max-w-[360px] rounded-[12px]">
+    </div>
+    <div class="info-container py-4 flex justify-between flex-col gap-6 md:gap-0 items-center md:items-start">
+      <div class="name flex flex-col">
+        <span class="font-[600] text-[26px] mb-2 text-center md:text-start">Коротіна Христина Вікторівна</span>
+        <span class="text-[14px] text-[#666666] text-center md:text-start">лікар-отоларинголог</span>
+      </div>
+      <div class="experience flex flex-col">
+        <span class="text-[18px] text-primary mb-3 font-[600]">Стаж роботи</span>
+        <div class="text-primary font-[600] flex items-center">
+          <span class="text-[36px] mr-2">{{experience}}</span>
+          <span class="text-[22]">роки(-ів)</span>
+        </div>
+      </div>
+      <div class="book-attendance">
+        <button (click)="openContactDialog()"
+          class="rounded-md bg-primary hover:bg-transparent text-white hover:text-primary border-2 border-primary p-2 text-[16px]"
+        >Записатися на прийом
+        </button>
+      </div>
+      <div class="description text-[16px]">
+        <p class="text-center md:text-start">Освіта – вища медична, закінчила у 2022р. <a
+          class="text-primary underline hover:opacity-60"
+          href="https://new.meduniv.lviv.ua/" target="_blank">Львівський
+          Національний Медичний Університет ім.Данила Галицького</a> за спеціальністю педіатрія</p>
+      </div>
+    </div>
+  </div>
+  <div class="additional-info text-[16px] mt-6">
+    <div class="courses">
+      <p><strong class="text-[18px]">2008р. – 2010р.</strong> – інтернатура за спеціальністю педіатрія на базі <a
+        class="text-primary underline hover:opacity-80"
+        target="_blank" href="http://www.zusdmc.lviv.ua/">Західноукраїнського
+        спеціалізованого дитячого медичного центру</a>;</p>
+      <p><strong class="text-[18px]">З 2010р.</strong> – робота в <a class="text-primary underline hover:opacity-80"
+                                                                     target="_blank"
+                                                                     href="https://www.facebook.com/pages/category/Medical-Company/%D0%9A%D0%97-%D0%93%D0%A0%D0%A0-%D0%93%D0%BE%D1%80%D0%BE%D0%B4%D0%BE%D1%86%D1%8C%D0%BA%D0%B0-%D0%A6%D0%A0%D0%9BGorodok-CRH-237941016299964/">КЗ
+        ГРР “Городоцька ЦРЛ”</a> лікар-педіатр-ургентний;</p>
+      <p><strong class="text-[18px]">2016р. – 2017р.</strong> – навчання в <a
+        class="text-primary underline hover:opacity-80" target="_blank"
+        href="https://cosmemed.com/">Міжнародній школі медичної косметології ім.Софії Грицак (MEDIOCRIS)</a>;</p>
+      <p><strong class="text-[18px]">З 2017р.</strong> – робота в спа-салонах : MFL, PRC;</p>
+      <p><strong class="text-[18px]">2017р.</strong> – пройшла навчання з предмету мезотерапія та біоревіталізація;</p>
+      <p><strong class="text-[18px]">2017р.</strong> – майстер-клас від компанії MEDHOME «застосування препарату TwAc та
+        Phillex в медичній практиці»;</p>
+      <p><strong class="text-[18px]">2017р.</strong> – навчання по апаратних методиках в естетиці обличчя і тіла;</p>
+      <p><strong class="text-[18px]">2017р.</strong> – пройшла на базі TOTIS PHARMA GROUP практичний і теоретичний курс
+        «мезотерапія іспанських брендів
+        innoaesthetics I simildiet для вирішення будь-яких естетичних проблем, клінічне лікування акне, постакне. Робота
+        з проблемною шкірою»;</p>
+      <p><strong class="text-[18px]">2017р.</strong> - інновації від Mastelli «Синергічне поєднання полінуклеотидів та
+        гіалуронової кислоти»;</p>
+      <p><strong class="text-[18px]">2017р.</strong> - семінари по професійному використанню препаратів лабораторії
+        Holly
+        Land;</p>
+      <p><strong class="text-[18px]">2018р.</strong> - на базі TOTIS PHARMA GROUP «Гіперпігментація. Сучасні можливості
+        терапії і профілактики»;</p>
+      <p><strong class="text-[18px]">2018р.</strong> - пройшла курс навчання по методиці «Радіохвильового ліфтинга
+        обличчя
+        і тіла»;</p>
+      <p><strong class="text-[18px]">2019р.</strong> - семінар MESOESTETIC «Поєднання пілінгів з мезопрепаратами в
+        Anti-age терапії»;</p>
+      <p><strong class="text-[18px]">2019р.</strong> - пройшла повний теоретичний і практичний курс навчання по
+        інноваційній технології безін'єкційного ремоделюванні дерми PRX-T 33;</p>
+      <p><strong class="text-[18px]">2019р.</strong> - прийняла участь в науково-практичній конференції «LIFT UP
+        терапія.Ревіталізація з миттєвим ліфтинговим ефектом»;</p>
+      <p><strong class="text-[18px]">2020р.</strong> - пройшла курс навчання «Ботулінотерапія», та оволоділа
+        теоретичними
+        та практичними навиками.</p>
+    </div>
+  </div>
+</div>

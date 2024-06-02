@@ -14,6 +14,8 @@ import {AngularFireModule} from "@angular/fire/compat";
 import {provideEnvironmentNgxMask} from "ngx-mask";
 import {DoctorsLayoutComponent} from './layouts/doctors-layout/doctors-layout.component';
 import {HeaderNavComponent} from "./shared/header-nav/header-nav.component";
+import {HttpClientModule} from "@angular/common/http";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import {HeaderNavComponent} from "./shared/header-nav/header-nav.component";
     AngularFirestoreModule,
     MatIconModule,
     HeaderNavComponent,
+    HttpClientModule,
+    MatDialogModule,
   ],
   providers: [
     provideEnvironmentNgxMask(),

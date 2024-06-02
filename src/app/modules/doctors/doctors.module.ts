@@ -6,6 +6,7 @@ import {DoctorsRouting} from "./doctors.routing";
 import {KorotinaKhristinaComponent} from './pages/korotina-khristina/korotina-khristina.component';
 import {RabaGaliaComponent} from './pages/raba-galia/raba-galia.component';
 import {RabaBohdanComponent} from './pages/raba-bohdan/raba-bohdan.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import {RabaBohdanComponent} from './pages/raba-bohdan/raba-bohdan.component';
     CommonModule,
     MatIconModule,
     SectionTitleModule,
+    MatDialogModule,
   ],
   declarations: [
     KorotinaKhristinaComponent,

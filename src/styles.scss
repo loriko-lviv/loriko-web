@@ -10,11 +10,35 @@ body {
   font-family: Montserrat, sans-serif;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 h1 {
   font-size: 28px;
   position: relative;
 }
 
+.snack-bar-success {
+  .mat-mdc-snack-bar-label {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+input, textarea {
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  outline: none;
+}
+
+.contact-form-dialog {
+  @media (max-width: 768px) {
+    width: calc(100vw - 16px);
+    max-width: calc(100vw - 16px) !important;
+  }
+}

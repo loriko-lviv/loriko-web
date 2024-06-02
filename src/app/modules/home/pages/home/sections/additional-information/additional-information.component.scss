@@ -7,10 +7,16 @@
     }
   }
 
-  li, span {
+  li, p {
     font-size: 19px;
     margin-bottom: 10px;
     line-height: 25px;
     font-weight: 300;
+  }
+
+  p {
+    letter-spacing: 1.25px;
+    word-spacing: 8px;
+    text-indent: 50px;
   }
 }
