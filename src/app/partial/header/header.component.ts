@@ -13,6 +13,8 @@ export class HeaderComponent {
   }
 
   openContactDialog() {
-    this.dialog.open(ContactFormDialogComponent);
+    this.dialog.open(ContactFormDialogComponent, {
+      panelClass: 'contact-form-dialog',
+    });
   }
 }
