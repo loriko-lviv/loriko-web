@@ -10,6 +10,10 @@ body {
   font-family: Montserrat, sans-serif;
 }
 
+*, html {
+  scroll-behavior: smooth !important;
+}
+
 html, body {
   height: 100%;
 }
@@ -42,3 +46,4 @@ input, textarea {
     max-width: calc(100vw - 16px) !important;
   }
 }
+

@@ -1,5 +1,44 @@
 :host {
   .header-information {
     z-index: 100;
+
+    @media (max-width: 768px) {
+
+      li {
+        padding: 15px;
+        font-size: 18px;
+      }
+
+      .contacts {
+        .links {
+          max-height: 0;
+          transition: all 0.3s linear;
+          overflow: hidden;
+        }
+      }
+
+      &.open {
+        .contacts {
+          .links {
+            padding: 0 0 20px 0;
+            max-height: 350px;
+            transition: all 0.3s linear;
+          }
+        }
+      }
+    }
+  }
+
+  ul {
+    li {
+      a {
+        cursor: pointer;
+
+        &:hover, &.active {
+          border-bottom: 3px solid #077506;
+          color: #077506;
+        }
+      }
+    }
   }
 }
