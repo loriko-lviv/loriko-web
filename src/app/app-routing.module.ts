@@ -30,6 +30,7 @@ const routes: Routes = [
     enableTracing: false, // enable for debugging
     anchorScrolling: 'disabled',
     scrollPositionRestoration: 'disabled',
+    scrollOffset: [0, 0],
   })],
   exports: [RouterModule]
 })

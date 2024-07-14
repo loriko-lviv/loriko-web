@@ -4,9 +4,21 @@
     <div class="services">
       <div class="service" *ngFor="let service of services">
         <h2 class="type">{{service.type}}</h2>
-        <div class="service-item flex justify-between" *ngFor="let item of service.list">
-          <span class="flex-[1_1_70%]">{{item.title}}</span>
-          <span class="price flex-[1_1_30%] flex justify-end whitespace-nowrap">{{item.price}} грн</span>
+        <div class="service-item flex-col" *ngFor="let item of service.list">
+          <div class="service-wrapper flex justify-between">
+            <span class="flex-[1_1_70%]">{{item.title}}</span>
+            <span class="price flex-[1_1_30%] flex justify-end whitespace-nowrap" *ngIf="item.price">{{item.price}}
+              грн</span>
+          </div>
+          <div class="price-list pl-6 mt-6" *ngIf="item.list">
+            <ul class="w-full !max-w-[100%]">
+              <li *ngFor="let attachedItem of item.list" class="flex">
+                <span class="flex-[1_1_70%]">{{attachedItem.title}}</span>
+                <span class="price flex-[1_1_30%] flex font-[400] justify-end whitespace-nowrap"
+                      *ngIf="attachedItem.price">{{attachedItem.price}} грн</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

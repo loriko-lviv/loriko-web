@@ -31,6 +31,8 @@
 
   ul {
     li {
+      transform: translateY(0);
+      transition: all .3s ease-in-out;
       a {
         cursor: pointer;
 
@@ -38,6 +40,11 @@
           border-bottom: 3px solid #077506;
           color: #077506;
         }
+      }
+
+      &:active {
+        transform: translateY(-12px);
+        transition: all .3s ease-in-out;
       }
     }
   }

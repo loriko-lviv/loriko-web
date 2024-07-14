@@ -27,7 +27,6 @@
     }
 
     ul {
-      list-style: none;
       max-width: 400px;
 
       li {
@@ -36,6 +35,12 @@
         margin: 10px 0;
         border-bottom: 1px solid #cbcbcb;
         padding-bottom: 10px;
+
+        &:last-child {
+          border-bottom: 0;
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
       }
     }
   }
