@@ -74,7 +74,7 @@ export class OurServicesComponent {
         },
         {
           title: 'Ботулінотерапія: препарат : NEURONOX (MEDYTOX):', list: [
-            {title: 'ділянка міжбрівʼя(16-20од.)', price: '1880-2160'},
+            {title: 'ділянка міжбрівʼя (16-20од.)', price: '1880-2160'},
             {title: 'чоло (36-40од.)', price: '3280-3560'},
             {title: '«гусячі лапки» (24од.)', price: '2450'},
             {title: 'пахви', price: '10000'},
