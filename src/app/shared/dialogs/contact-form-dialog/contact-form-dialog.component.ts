@@ -9,6 +9,7 @@ import {take} from "rxjs";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatDialogRef} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
+import {PhoneMaskModule} from "../../directives/phone-mask/phone-mask.module";
 
 @Component({
   selector: 'app-contact-form-dialog',
@@ -23,6 +24,7 @@ import {MatButtonModule} from "@angular/material/button";
     TextFieldModule,
     MatSnackBarModule,
     MatButtonModule,
+    PhoneMaskModule,
   ],
 })
 export class ContactFormDialogComponent {
@@ -37,6 +39,10 @@ export class ContactFormDialogComponent {
               private snackBar: MatSnackBar,
               private matDialogRef: MatDialogRef<ContactFormDialogComponent>,
               private requestService: RequestService) {
+  }
+
+  get phoneControlValue(): string {
+    return this.form.get('phone')?.value as string;
   }
 
   sendRequest(): void {

@@ -20,7 +20,7 @@ export class RequestService {
 
       Імʼя: ${name}
 
-      Телефон: +380${phone}
+      Телефон: +38 ${phone}
 
       ${wishes ? `Побажання: ${wishes}` : ''}`
     });

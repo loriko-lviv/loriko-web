@@ -5,8 +5,8 @@
   <form class="flex flex-col justify-between gap-8" [formGroup]="form">
     <input placeholder="Ваше імʼя" type="text" formControlName="name"
            class="w-full text-[16px] border-[1px] border-[#eeeeee] rounded-sm border-border-primary p-3 focus:border-primary">
-    <input placeholder="Ваш телефон" formControlName="phone" type="tel" prefix="+380" [showMaskTyped]="true"
-           mask="(00) 0000 000"
+    <input  formControlName="phone" type="tel" placeholder="Ваш телефон" id="tel" [phoneControl]="form.controls['phone']" [preValue]="phoneControlValue"
+           maxlength="14" phoneMask
            class="w-full text-[16px] border-[1px] border-[#eeeeee] rounded-sm border-border-primary p-3 focus:border-primary">
     <textarea cdkTextareaAutosize formControlName="wishes" cdkAutosizeMinRows="3" cdkAutosizeMaxRows="5"
               class="w-full text-[16px] border-[1px] border-[#eeeeee] rounded-sm border-border-primary p-3 focus:border-primary"

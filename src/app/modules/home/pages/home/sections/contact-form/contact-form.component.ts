@@ -35,6 +35,10 @@ export class ContactFormComponent {
       });
   }
 
+  get phoneControlValue(): string {
+    return this.form.get('phone')?.value as string;
+  }
+
   private openSnackBar() {
     this._snackBar.open('Заявка була успішно відправлена', undefined, {
       duration: this.durationInSeconds * 1000,
