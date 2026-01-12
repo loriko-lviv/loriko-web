@@ -11,6 +11,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {environment} from "../environments/environment";
 import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import {AngularFireModule} from "@angular/fire/compat";
+import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {provideEnvironmentNgxMask} from "ngx-mask";
 import {DoctorsLayoutComponent} from './layouts/doctors-layout/doctors-layout.component';
 import {HeaderNavComponent} from "./shared/header-nav/header-nav.component";
@@ -31,6 +32,7 @@ import {MatDialogModule} from "@angular/material/dialog";
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    AngularFireAuthModule,
     MatIconModule,
     HeaderNavComponent,
     HttpClientModule,

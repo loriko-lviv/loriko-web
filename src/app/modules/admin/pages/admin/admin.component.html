@@ -1,0 +1,124 @@
+<section class="admin-shell">
+  <div class="admin-hero">
+    <div class="admin-hero__content">
+      <div class="admin-top">
+        <span class="admin-badge">Адмін · Ціни</span>
+        <a class="btn-ghost btn-ghost--light" routerLink="/">На головну</a>
+      </div>
+      <h1>Адмін панель: ціни</h1>
+      <p>
+        Доступ обмежений. Посилання не відображається у меню.
+      </p>
+    </div>
+    <div class="admin-hero__card">
+      <div class="card-label">Сесія</div>
+      <div class="card-value" *ngIf="isAdmin; else guest">Адміністратор</div>
+      <ng-template #guest>
+        <div class="card-value">Гість</div>
+      </ng-template>
+      <div class="card-meta">
+        Редагування дозволено лише адміністратору.
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="statusMessage"
+    class="admin-alert"
+    [class.admin-alert--success]="statusTone === 'success'"
+    [class.admin-alert--error]="statusTone !== 'success'"
+  >
+    {{statusMessage}}
+  </div>
+
+  <ng-container *ngIf="isAdmin; else signedOut">
+    <div class="admin-toolbar">
+      <div class="toolbar-left">
+        <span class="toolbar-title">Редактор прайсу</span>
+        <span class="toolbar-subtitle">Сесія активна</span>
+      </div>
+      <div class="toolbar-actions">
+        <button
+          class="btn-primary"
+          (click)="savePrices()"
+          [disabled]="saving"
+        >
+          Зберегти зміни
+        </button>
+        <button class="btn-ghost" (click)="signOut()">Вийти</button>
+      </div>
+      <span *ngIf="saving" class="toolbar-status">Збереження...</span>
+    </div>
+
+    <div *ngIf="loading" class="admin-loading">
+      Завантаження цін...
+    </div>
+
+    <div *ngIf="!loading" class="admin-grid">
+      <div
+        *ngFor="let service of services; let serviceIndex = index"
+        class="service-card"
+        [style.animationDelay]="serviceIndex * 80 + 'ms'"
+      >
+        <div class="service-card__header">
+          <h2>{{service.type}}</h2>
+          <span class="service-count">{{service.list.length}} позицій</span>
+        </div>
+        <div class="service-card__body">
+          <div
+            *ngFor="let item of service.list"
+            class="service-row"
+          >
+            <div class="service-row__title">{{item.title}}</div>
+            <div class="service-row__control" *ngIf="item.editable; else noPrice">
+              <input
+                [(ngModel)]="item.price"
+                class="price-input"
+                placeholder="Ціна"
+                inputmode="decimal"
+              />
+              <span class="price-suffix">грн</span>
+            </div>
+            <ng-template #noPrice>
+              <span class="service-row__meta">підкатегорії</span>
+            </ng-template>
+
+            <div *ngIf="item.list?.length" class="service-children">
+              <div
+                *ngFor="let child of item.list"
+                class="service-row service-row--child"
+              >
+                <div class="service-row__title">{{child.title}}</div>
+                <div class="service-row__control" *ngIf="child.editable">
+                  <input
+                    [(ngModel)]="child.price"
+                    class="price-input"
+                    placeholder="Ціна"
+                    inputmode="decimal"
+                  />
+                  <span class="price-suffix">грн</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #signedOut>
+    <div class="login-card">
+      <div>
+        <h3>Увійдіть для редагування</h3>
+        <p>
+          Доступ можливий лише для адміністратора. Вхід не зберігає персональні
+          дані на сайті.
+        </p>
+      </div>
+      <button class="btn-primary" (click)="signIn()">
+        <span class="btn-icon">G</span>
+        Увійти з Google
+      </button>
+    </div>
+  </ng-template>
+</section>

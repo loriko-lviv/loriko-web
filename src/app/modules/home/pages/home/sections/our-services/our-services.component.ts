@@ -1,181 +1,30 @@
-import { Component } from '@angular/core';
-
-interface BasicListItem {
-  title: string;
-  price?: string;
-}
-
-type ListItem = BasicListItem & {
-  list?: BasicListItem[];
-};
-type ServiceType = {
-  type: string;
-  list: ListItem[];
-};
+import {Component, OnDestroy} from '@angular/core';
+import {Subject, takeUntil} from 'rxjs';
+import {PricingService} from '../../../../../../services/pricing.service';
+import {
+  buildServicesWithIds,
+  ServiceTypeWithId,
+} from '../../../../../../data/services-catalog';
 
 @Component({
   selector: 'app-our-services',
   templateUrl: './our-services.component.html',
   styleUrls: ['./our-services.component.scss'],
 })
-export class OurServicesComponent {
-  readonly services: ServiceType[] = [
-    {
-      type: 'Отоларинголога',
-      list: [
-        {
-          title: 'Консультація отоларинголога провідного спеціаліста',
-          price: '950',
-        },
-        {
-          title: 'Повторна консультація отоларинголога провідного спеціаліста',
-          price: '800',
-        },
-        { title: 'Консультація отоларинголога', price: '800' },
-        { title: 'Повторна консультація отоларинголога', price: '650' },
-        {
-          title:
-            'Консультація отоларинголога провідного спеціаліста зі знижкою',
-          price: '800',
-        },
-        { title: 'Консультація отоларинголога зі знижкою', price: '650' },
-        {
-          title:
-            'Тимпанометрія (визначення стану слухової труби і середнього вуха)',
-          price: '350',
-        },
-        { title: 'Проколювання вух System 75 (з сережками)', price: '1000' },
-        {
-          title: 'Видалення стороннього тіла з ЛОР органів',
-          list: [
-            { title: 'I рівня складності', price: '800' },
-            { title: 'II рівня складності', price: '1000' },
-          ],
-        },
-        { title: 'Промивання носової порожнини по Проетцу', price: '300' },
-        {
-          title: 'Туалет слухового ходу (при гнійних захворюваннях вух)',
-          price: '350',
-        },
-        { title: 'Промивання лакун мигдаликів', price: '450' },
-        {
-          title:
-            'Промивання лакун мигдаликів + фонофорез на підщелепову ділянку',
-          price: '500',
-        },
-        {
-          title: 'Вимивання сірчаного корка',
-          list: [
-            {
-              title: '1 вухо',
-              price: '450',
-            },
-            {
-              title: '2 вуха',
-              price: '550',
-            },
-          ],
-        },
-        {
-          title:
-            'Продування вух балоном Політцера + масаж барабанної перетинки + фонофорез лідази',
-          price: '450',
-        },
-        { title: 'Парацентез (розріз барабанної перетинки)', price: '1400' },
-        {
-          title: 'Репозиція кісток носа з місцевим знечуленням',
-          price: '1500',
-        },
-        { title: 'Забір матеріалу на гістологічне обстеження', price: '500' },
-        { title: 'Видалення кист мигдалика', price: '1000' },
-        { title: 'Пункція гайморової пазухи', price: '1500' },
-        { title: 'Підслизова кобляційна вазотомія', price: '12500' },
-      ],
-    },
-    {
-      type: 'Косметолога',
-      list: [
-        {
-          title: 'Гігієнічна чиста обличчя для всіх типів шкіри',
-          price: '900',
-        },
-        { title: 'Гіг. чистка + пілінг по типу шкіри', price: '1200' },
-        { title: 'Гіг. чистка спини', price: '1600' },
-        {
-          title: 'Пілінги: мигдалевий, азелаїновий, відбілюючий',
-          price: '850',
-        },
-        {
-          title: 'Серединний пілінг YELLOW PEEL (SIMILDIET Іспанія)',
-          price: '1350',
-        },
-        { title: 'Карбоксітерапія від LAMIC', price: '1100' },
-        { title: 'Серединний пілінг PRX Т-33', price: '1800' },
-        { title: 'Мікродермобразія обличчя', price: '1000' },
-        {
-          title: 'Мікродермобразія обличчя + пілінг по типу шкіри',
-          price: '1500',
-        },
-        {
-          title:
-            'Догляд за обличчям ANTI-AGE з фонофорезом і ампульними сироватками (апаратна методика)',
-          price: '1400',
-        },
-        { title: 'Процедура з екзосомами SSEDAM ', price: '2300' },
-        { title: 'Класичний масаж обличчя ', price: '700' },
-        { title: 'Лівтинговий, лімфодренажний масаж обличчя', price: '700' },
-        { title: 'Терапія мікротоками + догляд по типу шкіри', price: '1500' },
-        {
-          title: 'Мезотерапія кисті рук (препаратами SIMILDIET Іспанія)',
-          price: '900',
-        },
-        {
-          title: 'Мезотерапія волосистої частини голови HAIR + REVITALIZING',
-          price: '1000',
-        },
-        {
-          title: 'Мезотерапія волосистої частини голови Plinest (2ml)',
-          price: '5000',
-        },
-        {
-          title: 'Мезотерапія полінуклеотидами препаратом VITARAN (2ml)',
-          price: '4300',
-        },
-        {
-          title: 'Мезотерапія препаратом FILL UP (INNOAESTHETICS)',
-          price: '1800',
-        },
-        {
-          title: 'Мезотерапія препаратом HYDRO DELUXE (NEAUVIA) (2.5 ml)',
-          price: '4300',
-        },
-        {
-          title: 'Мезотерапія зони навколо очей препаратом REJURAN 1 (1ml)',
-          price: '3400',
-        },
-        {
-          title: 'Аугментація губ INTENSE LIPS (NEAUVIA) (1x1 ml)',
-          price: '6000',
-        },
-        {
-          title: 'Плазмотерапія',
-          list: [
-            { title: 'обличчя', price: '1700' },
-            { title: 'волосистої частини голови', price: '1400' },
-            { title: 'кисті рук', price: '1200' },
-            { title: 'обличчя, шия, декольте', price: '2800' },
-          ],
-        },
-        {
-          title: 'Ботулінотерапія: препарат : NEURONOX (MEDYTOX):',
-          list: [
-            { title: 'ділянка міжбрівʼя (16-20од.)', price: '1900-2250' },
-            { title: 'чоло (36-40од.)', price: '3400-3700' },
-            { title: '«гусячі лапки» (24од.)', price: '2700' },
-            { title: 'пахви', price: '10000' },
-          ],
-        },
-      ],
-    },
-  ];
+export class OurServicesComponent implements OnDestroy {
+  services: ServiceTypeWithId[] = buildServicesWithIds();
+  private readonly destroy$ = new Subject<void>();
+
+  constructor(private pricingService: PricingService) {
+    this.pricingService.prices$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((prices) => {
+        this.services = buildServicesWithIds(prices);
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }
