@@ -999,11 +999,13 @@
   border-radius: 999px;
   font-size: 0.68rem;
   font-weight: 700;
-  background: currentColor;
-  color: #fff;
-  filter: opacity(0.85);
   margin-left: auto;
+  color: #fff;
 }
+
+.review-section__header--modified .review-section__count { background: #9a6b00; }
+.review-section__header--added .review-section__count { background: var(--teal); }
+.review-section__header--removed .review-section__count { background: var(--red); }
 
 .review-rows {
   padding: 4px 0;
