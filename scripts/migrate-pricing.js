@@ -6,25 +6,21 @@
  *
  * New shape (v2):
  *   {
- *     prices:  Record<string, string>   // unchanged
- *     removed: string[]                 // NEW – ids of removed catalog items
- *     custom:  CustomItem[]             // NEW – user-added positions
+ *     prices:  Record<string, string>   // price overrides by item id
+ *     removed: string[]                 // ids of removed catalog items
+ *     custom:  CustomItem[]             // user-added positions
  *   }
  *
  * The migration is safe to run multiple times (idempotent):
  *   - If `removed` / `custom` already exist, they are left untouched.
- *   - If the document does not exist yet `prices` is initialised from the
- *     hard-coded catalog defaults so the public price list still renders.
+ *   - If the document does not exist yet, `prices` is initialised from the
+ *     catalog defaults so the public price list renders correctly.
  *
  * Usage:
- *   GOOGLE_APPLICATION_CREDENTIALS=loriko-service-key.json \
- *     node scripts/migrate-pricing.js
- *
- *   -- or with an explicit key path --
- *   node scripts/migrate-pricing.js --key loriko-service-key.json
- *
- *   -- dry-run (reads & prints, does not write) --
+ *   node scripts/migrate-pricing.js
  *   node scripts/migrate-pricing.js --dry-run
+ *   node scripts/migrate-pricing.js --reset-prices      ← overwrite prices with new catalog defaults
+ *   node scripts/migrate-pricing.js --key loriko-service-key.json
  */
 
 /* eslint-disable no-console */
@@ -38,6 +34,7 @@ const path = require("path");
 const args = process.argv.slice(2);
 const keyIndex = args.indexOf("--key");
 const isDryRun = args.includes("--dry-run");
+const resetPrices = args.includes("--reset-prices");
 
 const keyPath =
   keyIndex !== -1
@@ -45,7 +42,6 @@ const keyPath =
     : path.resolve(__dirname, "../loriko-service-key.json");
 
 // ─── Catalog defaults (mirrors services-catalog.ts) ─────────────────────────
-// Used only when the document does not exist yet, to pre-populate prices.
 
 const SERVICES_CATALOG = [
   {
@@ -112,61 +108,78 @@ const SERVICES_CATALOG = [
   {
     type: "Косметолога",
     list: [
-      { title: "Гігієнічна чиста обличчя для всіх типів шкіри", price: "900" },
-      { title: "Гіг. чистка + пілінг по типу шкіри", price: "1200" },
+      {
+        title: "Гігієнічна чистка обличчя для всіх типів шкіри",
+        price: "1000",
+      },
+      { title: "Гіг. чистка + пілінг по типу шкіри", price: "1300" },
       { title: "Гіг. чистка спини", price: "1600" },
-      { title: "Пілінги: мигдалевий, азелаїновий, відбілюючий", price: "850" },
       {
-        title: "Серединний пілінг YELLOW PEEL (SIMILDIET Іспанія)",
-        price: "1350",
-      },
-      { title: "Карбоксітерапія від LAMIC", price: "1100" },
-      { title: "Серединний пілінг PRX Т-33", price: "1800" },
-      { title: "Мікродермобразія обличчя", price: "1000" },
-      {
-        title: "Мікродермобразія обличчя + пілінг по типу шкіри",
-        price: "1500",
-      },
-      {
-        title:
-          "Догляд за обличчям ANTI-AGE з фонофорезом і ампульними сироватками (апаратна методика)",
-        price: "1400",
-      },
-      { title: "Процедура з екзосомами SSEDAM ", price: "2300" },
-      { title: "Класичний масаж обличчя ", price: "700" },
-      { title: "Лівтинговий, лімфодренажний масаж обличчя", price: "700" },
-      { title: "Терапія мікротоками + догляд по типу шкіри", price: "1500" },
-      {
-        title: "Мезотерапія кисті рук (препаратами SIMILDIET Іспанія)",
+        title: "Пілінги (мигдалевий / азелаїновий / відбілюючий)",
         price: "900",
       },
       {
-        title: "Мезотерапія волосистої частини голови HAIR + REVITALIZING",
-        price: "1000",
+        title: "Серединний пілінг YELLOW PEEL (SIMILDIET Іспанія)",
+        price: "1800",
+      },
+      { title: "Карбоксітерапія від LAMIC", price: "1500" },
+      { title: "Серединний пілінг PRX T-33", price: "1800" },
+      { title: "Серединний пілінг PRX T-33+", price: "2100" },
+      { title: "Мікродермоабразія обличчя", price: "1200" },
+      {
+        title: "Мікродермоабразія обличчя + пілінг по типу шкіри",
+        price: "1600",
       },
       {
-        title: "Мезотерапія волосистої частини голови Plinest (2ml)",
+        title:
+          "Догляд за обличчям ANTI-AGE з фонофорезом і ампульними сироватками",
+        price: "1700",
+      },
+      { title: "Процедура з екзосомами SSEDAM", price: "2400" },
+      { title: "Класичний масаж обличчя", price: "800" },
+      { title: "Ліфтинговий, лімфодренажний масаж обличчя", price: "800" },
+      { title: "Терапія мікротоками + догляд по типу шкіри", price: "1700" },
+      {
+        title: "Мезотерапія волосистої частини голови Plinest (2 ml)",
         price: "5000",
       },
       {
-        title: "Мезотерапія полінуклеотидами препаратом VITARAN (2ml)",
-        price: "4300",
+        title: "Мезотерапія полінуклеотидами препаратом VITARAN (2 ml)",
+        price: "5000",
+      },
+      {
+        title: "Мезотерапія полінуклеотидами препаратом Plinest (2 ml)",
+        price: "5000",
+      },
+      {
+        title: "Мезотерапія полінуклеотидами препаратом Plinest NEWEST (2 ml)",
+        price: "5300",
+      },
+      {
+        title:
+          "Терапія Lift UP (полінуклеотиди Plinest 2 ml + пілінг MCA 35-1 ml)",
+        price: "6000",
       },
       {
         title: "Мезотерапія препаратом FILL UP (INNOAESTHETICS)",
-        price: "1800",
+        price: "2000",
       },
       {
         title: "Мезотерапія препаратом HYDRO DELUXE (NEAUVIA) (2.5 ml)",
+        price: "4700",
+      },
+      {
+        title:
+          "Біоревіталізація препаратом SKIN BOOSTER HA20 (2 ml), безболісний метод 5 вколів",
         price: "4300",
       },
       {
-        title: "Мезотерапія зони навколо очей препаратом REJURAN 1 (1ml)",
-        price: "3400",
+        title: "Мезотерапія зони навколо очей препаратом REJURAN I (1 ml)",
+        price: "3600",
       },
       {
         title: "Аугментація губ INTENSE LIPS (NEAUVIA) (1x1 ml)",
-        price: "6000",
+        price: "6500",
       },
       {
         title: "Плазмотерапія",
@@ -183,7 +196,7 @@ const SERVICES_CATALOG = [
           { title: "ділянка міжбрів\u02bcя (16-20од.)", price: "1900-2250" },
           { title: "чоло (36-40од.)", price: "3400-3700" },
           { title: "«гусячі лапки» (24од.)", price: "2700" },
-          { title: "пахви", price: "10000" },
+          { title: "пахви", price: "8000" },
         ],
       },
     ],
@@ -223,21 +236,26 @@ async function migrate() {
   console.log("Reading current document at pricing/services …");
   const snap = await docRef.get();
 
+  const defaultPrices = buildDefaultPrices();
+  console.log(
+    `  Catalog default prices: ${Object.keys(defaultPrices).length} entries`,
+  );
+
   if (!snap.exists) {
     console.log("  Document does not exist. Creating with catalog defaults.");
 
     const newDoc = {
-      prices: buildDefaultPrices(),
+      prices: defaultPrices,
       removed: [],
       custom: [],
     };
 
-    console.log(`  prices: ${Object.keys(newDoc.prices).length} entries`);
-    console.log("  removed: []");
-    console.log("  custom:  []");
-
     if (isDryRun) {
-      console.log("\n[DRY RUN] No write performed.");
+      console.log(
+        "\n[DRY RUN] Would create document with",
+        Object.keys(newDoc.prices).length,
+        "prices.",
+      );
     } else {
       await docRef.set(newDoc);
       console.log("\n✓ Document created successfully.");
@@ -249,32 +267,63 @@ async function migrate() {
   console.log("  Document exists.");
   console.log(`    prices:  ${Object.keys(data.prices || {}).length} entries`);
   console.log(
-    `    removed: ${Array.isArray(data.removed) ? data.removed.length + " entries (already migrated)" : "missing"}`,
+    `    removed: ${Array.isArray(data.removed) ? data.removed.length + " entries" : "missing"}`,
   );
   console.log(
-    `    custom:  ${Array.isArray(data.custom) ? data.custom.length + " entries (already migrated)" : "missing"}`,
+    `    custom:  ${Array.isArray(data.custom) ? data.custom.length + " entries" : "missing"}`,
   );
 
   const alreadyMigrated =
     Array.isArray(data.removed) && Array.isArray(data.custom);
 
-  if (alreadyMigrated) {
-    console.log("\n✓ Document is already on v2 schema. Nothing to do.");
+  if (alreadyMigrated && !resetPrices) {
+    console.log("\n✓ Document is already on v2 schema.");
+    console.log(
+      "  To overwrite prices with new catalog defaults, run with --reset-prices.",
+    );
     return;
   }
 
-  // Build the update payload — only set the missing fields via merge
+  // Build update payload
   const update = {};
+
   if (!Array.isArray(data.removed)) update.removed = [];
   if (!Array.isArray(data.custom)) update.custom = [];
 
-  console.log("\nFields to add:", Object.keys(update));
+  if (resetPrices) {
+    // Merge: keep any custom-item price overrides, reset all catalog item prices
+    const existingCustomPrices = {};
+    if (Array.isArray(data.custom)) {
+      data.custom.forEach((c) => {
+        if (data.prices && data.prices[c.id] !== undefined) {
+          existingCustomPrices[c.id] = data.prices[c.id];
+        }
+      });
+    }
+    update.prices = { ...defaultPrices, ...existingCustomPrices };
+    console.log(
+      `\n  Resetting prices to catalog defaults (${Object.keys(defaultPrices).length} entries).`,
+    );
+    if (Object.keys(existingCustomPrices).length) {
+      console.log(
+        `  Preserving ${Object.keys(existingCustomPrices).length} custom-item price(s).`,
+      );
+    }
+  }
+
+  const fieldsChanged = Object.keys(update);
+  if (fieldsChanged.length === 0) {
+    console.log("\n✓ Nothing to update.");
+    return;
+  }
+
+  console.log("\nFields to update:", fieldsChanged);
 
   if (isDryRun) {
     console.log("[DRY RUN] No write performed.");
   } else {
     await docRef.set(update, { merge: true });
-    console.log("\n✓ Migration complete. Document is now on v2 schema.");
+    console.log("\n✓ Migration complete.");
   }
 }
 
