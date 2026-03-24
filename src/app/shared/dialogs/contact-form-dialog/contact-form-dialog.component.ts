@@ -1,13 +1,18 @@
-import {Component} from '@angular/core';
-import {MatIconModule} from "@angular/material/icon";
-import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
-import {TextFieldModule} from "@angular/cdk/text-field";
-import {RequestService} from "../../../services/request.service";
-import {take} from "rxjs";
-import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
-import {MatDialogRef} from "@angular/material/dialog";
-import {PhoneMaskModule} from "../../directives/phone-mask/phone-mask.module";
-import {CommonModule} from "@angular/common";
+import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import {
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { RequestService } from '../../../services/request.service';
+import { take } from 'rxjs';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogRef } from '@angular/material/dialog';
+import { PhoneMaskModule } from '../../directives/phone-mask/phone-mask.module';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-contact-form-dialog',
@@ -31,22 +36,25 @@ export class ContactFormDialogComponent {
     wishes: new FormControl(''),
   });
 
-  constructor(private fb: FormBuilder,
-              private snackBar: MatSnackBar,
-              private matDialogRef: MatDialogRef<ContactFormDialogComponent>,
-              private requestService: RequestService) {
-  }
+  constructor(
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar,
+    private matDialogRef: MatDialogRef<ContactFormDialogComponent>,
+    private requestService: RequestService,
+  ) {}
 
   get phoneControlValue(): string {
     return this.form.get('phone')?.value as string;
   }
 
   sendRequest(): void {
-    this.requestService.sendRequest(
-      this.form.get('name')?.value as string,
-      this.form.get('phone')?.value as string,
-      this.form.get('wishes')?.value || '',
-    ).pipe(take(1))
+    this.requestService
+      .sendRequest(
+        this.form.get('name')?.value as string,
+        this.form.get('phone')?.value as string,
+        this.form.get('wishes')?.value || '',
+      )
+      .pipe(take(1))
       .subscribe(() => {
         this.form.reset();
         this.openSnackBar();

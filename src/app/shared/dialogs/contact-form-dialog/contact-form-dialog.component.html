@@ -1,7 +1,11 @@
 <div class="cfd">
-
   <!-- Close -->
-  <button class="cfd__close" type="button" (click)="closeDialog()" aria-label="Закрити">
+  <button
+    class="cfd__close"
+    type="button"
+    (click)="closeDialog()"
+    aria-label="Закрити"
+  >
     <mat-icon aria-hidden="true">close</mat-icon>
   </button>
 
@@ -17,12 +21,23 @@
   </div>
 
   <!-- Form -->
-  <form class="cfd__form" [formGroup]="form" (ngSubmit)="sendRequest()" novalidate>
-
+  <form
+    class="cfd__form"
+    [formGroup]="form"
+    (ngSubmit)="sendRequest()"
+    novalidate
+  >
     <div class="cfd__field">
       <label class="cfd__label" for="cf-name">Імʼя</label>
-      <div class="cfd__input-wrap" [class.cfd__input-wrap--error]="form.controls.name.invalid && form.controls.name.touched">
-        <mat-icon class="cfd__field-icon" aria-hidden="true">person_outline</mat-icon>
+      <div
+        class="cfd__input-wrap"
+        [class.cfd__input-wrap--error]="
+          form.controls.name.invalid && form.controls.name.touched
+        "
+      >
+        <mat-icon class="cfd__field-icon" aria-hidden="true"
+          >person_outline</mat-icon
+        >
         <input
           id="cf-name"
           class="cfd__input"
@@ -32,12 +47,21 @@
           autocomplete="name"
         />
       </div>
-      <span class="cfd__error" *ngIf="form.controls.name.invalid && form.controls.name.touched">Вкажіть ваше імʼя</span>
+      <span
+        class="cfd__error"
+        *ngIf="form.controls.name.invalid && form.controls.name.touched"
+        >Вкажіть ваше імʼя</span
+      >
     </div>
 
     <div class="cfd__field">
       <label class="cfd__label" for="cf-phone">Телефон</label>
-      <div class="cfd__input-wrap" [class.cfd__input-wrap--error]="form.controls.phone.invalid && form.controls.phone.touched">
+      <div
+        class="cfd__input-wrap"
+        [class.cfd__input-wrap--error]="
+          form.controls.phone.invalid && form.controls.phone.touched
+        "
+      >
         <mat-icon class="cfd__field-icon" aria-hidden="true">phone</mat-icon>
         <input
           id="cf-phone"
@@ -52,11 +76,17 @@
           autocomplete="tel"
         />
       </div>
-      <span class="cfd__error" *ngIf="form.controls.phone.invalid && form.controls.phone.touched">Вкажіть номер телефону</span>
+      <span
+        class="cfd__error"
+        *ngIf="form.controls.phone.invalid && form.controls.phone.touched"
+        >Вкажіть номер телефону</span
+      >
     </div>
 
     <div class="cfd__field">
-      <label class="cfd__label" for="cf-wishes">Побажання <span class="cfd__optional">(необовʼязково)</span></label>
+      <label class="cfd__label" for="cf-wishes"
+        >Побажання <span class="cfd__optional">(необовʼязково)</span></label
+      >
       <textarea
         id="cf-wishes"
         class="cfd__textarea"
@@ -73,14 +103,9 @@
       <span>Ми ніколи не розголошуємо вашу особисту інформацію</span>
     </div>
 
-    <button
-      class="cfd__submit"
-      type="submit"
-      [disabled]="form.invalid"
-    >
+    <button class="cfd__submit" type="submit" [disabled]="form.invalid">
       <mat-icon aria-hidden="true">phone_callback</mat-icon>
       Передзвоніть мені
     </button>
-
   </form>
 </div>

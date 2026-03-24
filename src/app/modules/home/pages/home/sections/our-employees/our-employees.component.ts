@@ -19,7 +19,10 @@ interface Employee {
   styleUrls: ['./our-employees.component.scss'],
 })
 export class OurEmployeesComponent {
-  constructor(private router: Router, private dialog: MatDialog) {}
+  constructor(
+    private router: Router,
+    private dialog: MatDialog,
+  ) {}
 
   readonly employees: Employee[] = [
     {

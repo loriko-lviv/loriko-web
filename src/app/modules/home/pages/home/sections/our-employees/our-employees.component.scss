@@ -2,15 +2,17 @@
 // Our Employees — premium redesign
 // ─────────────────────────────────────────────────────────────
 
-$green:      #077506;
-$green-lt:   #f0fdf4;
-$border:     #e5e7eb;
-$text-1:     #111827;
-$text-2:     #6b7280;
+$green: #077506;
+$green-lt: #f0fdf4;
+$border: #e5e7eb;
+$text-1: #111827;
+$text-2: #6b7280;
 $radius-card: 20px;
-$photo-h:    260px;
+$photo-h: 260px;
 
-:host { display: block; }
+:host {
+  display: block;
+}
 
 .doctors {
   padding: 48px 16px 64px;
@@ -23,8 +25,12 @@ $photo-h:    260px;
     gap: 28px;
     margin-top: 40px;
 
-    @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
-    @media (max-width: 580px) { grid-template-columns: 1fr; }
+    @media (max-width: 900px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 580px) {
+      grid-template-columns: 1fr;
+    }
   }
 }
 
@@ -39,9 +45,10 @@ $photo-h:    260px;
   overflow: hidden;
   cursor: pointer;
   outline: none;
-  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.22s ease,
-              border-color 0.2s ease;
+  transition:
+    transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.22s ease,
+    border-color 0.2s ease;
 
   &:hover,
   &:focus-visible {
@@ -60,10 +67,14 @@ $photo-h:    260px;
     background: #f3f4f6;
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, transparent 55%, rgba(0,0,0,0.18) 100%);
+      background: linear-gradient(
+        to bottom,
+        transparent 55%,
+        rgba(0, 0, 0, 0.18) 100%
+      );
     }
   }
 
@@ -74,7 +85,9 @@ $photo-h:    260px;
     object-position: top center;
     transition: transform 0.4s ease;
 
-    .doc-card:hover & { transform: scale(1.04); }
+    .doc-card:hover & {
+      transform: scale(1.04);
+    }
   }
 
   &__specialty {
@@ -178,9 +191,17 @@ $photo-h:    260px;
     font-weight: 600;
     cursor: pointer;
     text-decoration: none;
-    transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    transition:
+      background 0.18s ease,
+      color 0.18s ease,
+      border-color 0.18s ease,
+      box-shadow 0.18s ease;
 
-    svg { width: 16px; height: 16px; flex-shrink: 0; }
+    svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
 
     &--primary {
       background: $green;
@@ -190,7 +211,7 @@ $photo-h:    260px;
       &:hover {
         background: darken(#077506, 8%);
         border-color: darken(#077506, 8%);
-        box-shadow: 0 4px 14px rgba(7,117,6,0.3);
+        box-shadow: 0 4px 14px rgba(7, 117, 6, 0.3);
       }
     }
 

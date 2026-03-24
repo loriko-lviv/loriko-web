@@ -2,16 +2,18 @@
 // Contact Form Dialog — premium redesign
 // ─────────────────────────────────────────────────────────────
 
-$green:    #077506;
+$green: #077506;
 $green-lt: #f0fdf4;
-$border:   #e5e7eb;
-$text-1:   #111827;
-$text-2:   #6b7280;
-$text-3:   #9ca3af;
-$error:    #dc2626;
-$radius:   16px;
+$border: #e5e7eb;
+$text-1: #111827;
+$text-2: #6b7280;
+$text-3: #9ca3af;
+$error: #dc2626;
+$radius: 16px;
 
-:host { display: block; }
+:host {
+  display: block;
+}
 
 .cfd {
   position: relative;
@@ -39,9 +41,17 @@ $radius:   16px;
     transition: background 0.15s;
     color: $text-2;
 
-    mat-icon { font-size: 18px; width: 18px; height: 18px; line-height: 18px; }
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+    }
 
-    &:hover { background: #e5e7eb; color: $text-1; }
+    &:hover {
+      background: #e5e7eb;
+      color: $text-1;
+    }
   }
 
   // ── Header ─────────────────────────────────────────────
@@ -64,7 +74,12 @@ $radius:   16px;
     background: $green-lt;
     color: $green;
 
-    mat-icon { font-size: 24px; width: 24px; height: 24px; line-height: 24px; }
+    mat-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+    }
   }
 
   &__title {
@@ -114,7 +129,9 @@ $radius:   16px;
     background: #fff;
     border: 1.5px solid $border;
     border-radius: 10px;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
 
     &:focus-within {
       border-color: $green;
@@ -123,7 +140,9 @@ $radius:   16px;
 
     &--error {
       border-color: $error;
-      &:focus-within { box-shadow: 0 0 0 3px rgba($error, 0.1); }
+      &:focus-within {
+        box-shadow: 0 0 0 3px rgba($error, 0.1);
+      }
     }
   }
 
@@ -137,7 +156,9 @@ $radius:   16px;
     color: $text-3;
     transition: color 0.2s;
 
-    .cfd__input-wrap:focus-within & { color: $green; }
+    .cfd__input-wrap:focus-within & {
+      color: $green;
+    }
   }
 
   &__input {
@@ -152,7 +173,9 @@ $radius:   16px;
     box-shadow: none;
     border-radius: 10px;
 
-    &::placeholder { color: $text-3; }
+    &::placeholder {
+      color: $text-3;
+    }
   }
 
   &__textarea {
@@ -167,9 +190,13 @@ $radius:   16px;
     resize: none;
     box-shadow: none;
     box-sizing: border-box;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
 
-    &::placeholder { color: $text-3; }
+    &::placeholder {
+      color: $text-3;
+    }
 
     &:focus {
       border-color: $green;
@@ -227,7 +254,9 @@ $radius:   16px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s, box-shadow 0.2s;
+    transition:
+      background 0.2s,
+      box-shadow 0.2s;
     margin-top: 4px;
 
     mat-icon {

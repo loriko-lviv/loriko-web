@@ -33,7 +33,9 @@
 
         <div class="doc-card__exp">
           <span class="doc-card__exp-num">{{ experience(emp.sinceYear) }}</span>
-          <span class="doc-card__exp-label">{{ yearsLabel(emp.sinceYear) }} досвіду</span>
+          <span class="doc-card__exp-label"
+            >{{ yearsLabel(emp.sinceYear) }} досвіду</span
+          >
         </div>
 
         <!-- CTAs -->
@@ -45,14 +47,22 @@
           >
             Детальніше
             <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path
+                d="M3 8h10M9 4l4 4-4 4"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
           </button>
           <button
             class="doc-card__btn doc-card__btn--ghost"
             type="button"
             (click)="$event.stopPropagation(); openContactDialog()"
-          >Записатися</button>
+          >
+            Записатися
+          </button>
         </div>
       </div>
     </article>
