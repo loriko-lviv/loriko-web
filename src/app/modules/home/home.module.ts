@@ -17,10 +17,11 @@ import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatInputModule} from "@angular/material/input";
+import {MatDialogModule} from "@angular/material/dialog";
 import {PhoneMaskModule} from "../../shared/directives/phone-mask/phone-mask.module";
 
 @NgModule({
-    imports: [HomeRouting, CommonModule, MatIconModule, SectionTitleModule, NgxMaskDirective, HttpClientModule, ReactiveFormsModule, MatSnackBarModule, MatInputModule, PhoneMaskModule],
+    imports: [HomeRouting, CommonModule, MatIconModule, SectionTitleModule, NgxMaskDirective, HttpClientModule, ReactiveFormsModule, MatSnackBarModule, MatInputModule, MatDialogModule, PhoneMaskModule],
   declarations: [
     HomeComponent,
     OurEmployeesComponent,

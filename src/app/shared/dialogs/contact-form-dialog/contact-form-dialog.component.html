@@ -1,28 +1,86 @@
-<div class="dialog-container p-5 relative">
-  <div class="header">
-    <app-section-title title="Запис на прийом"></app-section-title>
-  </div>
-  <form class="flex flex-col justify-between gap-8" [formGroup]="form">
-    <input placeholder="Ваше імʼя" type="text" formControlName="name"
-           class="w-full text-[16px] border-[1px] border-[#eeeeee] rounded-sm border-border-primary p-3 focus:border-primary">
-    <input  formControlName="phone" type="tel" placeholder="Ваш телефон" id="tel" [phoneControl]="form.controls['phone']" [preValue]="phoneControlValue"
-           maxlength="14" phoneMask
-           class="w-full text-[16px] border-[1px] border-[#eeeeee] rounded-sm border-border-primary p-3 focus:border-primary">
-    <textarea cdkTextareaAutosize formControlName="wishes" cdkAutosizeMinRows="3" cdkAutosizeMaxRows="5"
-              class="w-full text-[16px] border-[1px] border-[#eeeeee] rounded-sm border-border-primary p-3 focus:border-primary"
-              placeholder="Ваші побажання"></textarea>
-    <div class="info flex gap-2 items-center">
-      <mat-icon class="text-primary text-[12px] !h-[15px] !w-[15px]">info</mat-icon>
-      <span class="text-[12px]">Ми ніколи не розголошуватимемо вашу особисту інформацію</span>
+<div class="cfd">
+
+  <!-- Close -->
+  <button class="cfd__close" type="button" (click)="closeDialog()" aria-label="Закрити">
+    <mat-icon aria-hidden="true">close</mat-icon>
+  </button>
+
+  <!-- Header -->
+  <div class="cfd__header">
+    <div class="cfd__icon" aria-hidden="true">
+      <mat-icon>phone_in_talk</mat-icon>
     </div>
-    <button type="button" (click)="sendRequest()" [disabled]="form.invalid"
-            class="text-[16px] rounded-sm bg-primary p-2 text-white hover:bg-dark disabled:bg-[#b4b4b4]">
+    <div>
+      <h2 class="cfd__title">Запис на прийом</h2>
+      <p class="cfd__subtitle">Ми передзвонимо вам якнайшвидше</p>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <form class="cfd__form" [formGroup]="form" (ngSubmit)="sendRequest()" novalidate>
+
+    <div class="cfd__field">
+      <label class="cfd__label" for="cf-name">Імʼя</label>
+      <div class="cfd__input-wrap" [class.cfd__input-wrap--error]="form.controls.name.invalid && form.controls.name.touched">
+        <mat-icon class="cfd__field-icon" aria-hidden="true">person_outline</mat-icon>
+        <input
+          id="cf-name"
+          class="cfd__input"
+          type="text"
+          placeholder="Наприклад, Олександр"
+          formControlName="name"
+          autocomplete="name"
+        />
+      </div>
+      <span class="cfd__error" *ngIf="form.controls.name.invalid && form.controls.name.touched">Вкажіть ваше імʼя</span>
+    </div>
+
+    <div class="cfd__field">
+      <label class="cfd__label" for="cf-phone">Телефон</label>
+      <div class="cfd__input-wrap" [class.cfd__input-wrap--error]="form.controls.phone.invalid && form.controls.phone.touched">
+        <mat-icon class="cfd__field-icon" aria-hidden="true">phone</mat-icon>
+        <input
+          id="cf-phone"
+          class="cfd__input"
+          type="tel"
+          placeholder="(099) 123-45-67"
+          formControlName="phone"
+          [phoneControl]="form.controls['phone']"
+          [preValue]="phoneControlValue"
+          maxlength="14"
+          phoneMask
+          autocomplete="tel"
+        />
+      </div>
+      <span class="cfd__error" *ngIf="form.controls.phone.invalid && form.controls.phone.touched">Вкажіть номер телефону</span>
+    </div>
+
+    <div class="cfd__field">
+      <label class="cfd__label" for="cf-wishes">Побажання <span class="cfd__optional">(необовʼязково)</span></label>
+      <textarea
+        id="cf-wishes"
+        class="cfd__textarea"
+        formControlName="wishes"
+        placeholder="Наприклад, до якого лікаря…"
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="3"
+        cdkAutosizeMaxRows="5"
+      ></textarea>
+    </div>
+
+    <div class="cfd__privacy">
+      <mat-icon aria-hidden="true">verified_user</mat-icon>
+      <span>Ми ніколи не розголошуємо вашу особисту інформацію</span>
+    </div>
+
+    <button
+      class="cfd__submit"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      <mat-icon aria-hidden="true">phone_callback</mat-icon>
       Передзвоніть мені
     </button>
+
   </form>
-  <div class="close-icon">
-    <button mat-icon-button (click)="closeDialog()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
 </div>

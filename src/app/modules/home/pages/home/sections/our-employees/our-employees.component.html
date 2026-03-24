@@ -1,22 +1,60 @@
-<section class="our-employees px-2 py-8 md:p-8">
+<section class="doctors">
   <app-section-title [title]="'Наші лікарі'"></app-section-title>
-  <div class="grid justify-evenly gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-    <div class="employee-item rounded-md p-4 flex flex-col justify-between items-center"
-         *ngFor="let employee of employees"
-         (click)="redirectToDoctorPage(employee.router)">
-      <div class="photo my-3.5">
-        <img [src]="employee.imageUrl" [alt]="employee.firstname"
-             class="w-[170px] h-[170px] rounded-full">
+
+  <div class="doctors__grid">
+    <article
+      class="doc-card"
+      *ngFor="let emp of employees"
+      (click)="goToDoctor(emp.route)"
+      tabindex="0"
+      role="button"
+      [attr.aria-label]="emp.lastname + ' ' + emp.firstname"
+      (keydown.enter)="goToDoctor(emp.route)"
+    >
+      <!-- Photo -->
+      <div class="doc-card__photo-wrap">
+        <img
+          class="doc-card__photo"
+          [src]="emp.imageUrl"
+          [alt]="emp.lastname + ' ' + emp.firstname"
+          loading="lazy"
+        />
+        <span class="doc-card__specialty">{{ emp.specialty }}</span>
       </div>
-      <div class="name flex flex-col justify-center items-center mb-5">
-        <span class="firstname my-2.5 text-dark">{{employee.lastname}}</span>
-        <span class="text-dark">{{employee.firstname}}</span>
+
+      <!-- Body -->
+      <div class="doc-card__body">
+        <div class="doc-card__name">
+          <span class="doc-card__lastname">{{ emp.lastname }}</span>
+          <span class="doc-card__firstname">{{ emp.firstname }}</span>
+        </div>
+
+        <p class="doc-card__role">{{ emp.role }}</p>
+
+        <div class="doc-card__exp">
+          <span class="doc-card__exp-num">{{ experience(emp.sinceYear) }}</span>
+          <span class="doc-card__exp-label">{{ yearsLabel(emp.sinceYear) }} досвіду</span>
+        </div>
+
+        <!-- CTAs -->
+        <div class="doc-card__actions">
+          <button
+            class="doc-card__btn doc-card__btn--primary"
+            type="button"
+            (click)="$event.stopPropagation(); goToDoctor(emp.route)"
+          >
+            Детальніше
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button
+            class="doc-card__btn doc-card__btn--ghost"
+            type="button"
+            (click)="$event.stopPropagation(); openContactDialog()"
+          >Записатися</button>
+        </div>
       </div>
-      <div class="description">
-      <span class="text-center inline-block text-dark">
-        {{employee.description}}
-      </span>
-      </div>
-    </div>
+    </article>
   </div>
 </section>

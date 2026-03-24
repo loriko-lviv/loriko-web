@@ -1,15 +1,13 @@
 import {Component} from '@angular/core';
-import {SectionTitleModule} from "../../section-title/section-title.module";
 import {MatIconModule} from "@angular/material/icon";
-import {NgxMaskDirective} from "ngx-mask";
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import {TextFieldModule} from "@angular/cdk/text-field";
 import {RequestService} from "../../../services/request.service";
 import {take} from "rxjs";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatDialogRef} from "@angular/material/dialog";
-import {MatButtonModule} from "@angular/material/button";
 import {PhoneMaskModule} from "../../directives/phone-mask/phone-mask.module";
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-contact-form-dialog',
@@ -17,13 +15,11 @@ import {PhoneMaskModule} from "../../directives/phone-mask/phone-mask.module";
   templateUrl: './contact-form-dialog.component.html',
   styleUrls: ['./contact-form-dialog.component.scss'],
   imports: [
-    SectionTitleModule,
+    CommonModule,
     MatIconModule,
-    NgxMaskDirective,
     ReactiveFormsModule,
     TextFieldModule,
     MatSnackBarModule,
-    MatButtonModule,
     PhoneMaskModule,
   ],
 })

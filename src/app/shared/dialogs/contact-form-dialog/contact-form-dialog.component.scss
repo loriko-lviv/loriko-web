@@ -1,7 +1,259 @@
-:host {
-  .close-icon {
+// ─────────────────────────────────────────────────────────────
+// Contact Form Dialog — premium redesign
+// ─────────────────────────────────────────────────────────────
+
+$green:    #077506;
+$green-lt: #f0fdf4;
+$border:   #e5e7eb;
+$text-1:   #111827;
+$text-2:   #6b7280;
+$text-3:   #9ca3af;
+$error:    #dc2626;
+$radius:   16px;
+
+:host { display: block; }
+
+.cfd {
+  position: relative;
+  width: 420px;
+  max-width: 100%;
+  padding: 36px 32px 32px;
+  background: #fff;
+  border-radius: $radius;
+
+  // ── Close button ────────────────────────────────────────
+
+  &__close {
     position: absolute;
-    right: 12px;
-    top: 12px
+    top: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: #f3f4f6;
+    cursor: pointer;
+    transition: background 0.15s;
+    color: $text-2;
+
+    mat-icon { font-size: 18px; width: 18px; height: 18px; line-height: 18px; }
+
+    &:hover { background: #e5e7eb; color: $text-1; }
+  }
+
+  // ── Header ─────────────────────────────────────────────
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: $green-lt;
+    color: $green;
+
+    mat-icon { font-size: 24px; width: 24px; height: 24px; line-height: 24px; }
+  }
+
+  &__title {
+    margin: 0 0 2px;
+    font-size: 20px;
+    font-weight: 700;
+    color: $text-1;
+    line-height: 1.2;
+  }
+
+  &__subtitle {
+    margin: 0;
+    font-size: 13px;
+    color: $text-2;
+  }
+
+  // ── Form ───────────────────────────────────────────────
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__label {
+    font-size: 13px;
+    font-weight: 600;
+    color: $text-1;
+    letter-spacing: 0.01em;
+  }
+
+  &__optional {
+    font-weight: 400;
+    color: $text-3;
+  }
+
+  &__input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1.5px solid $border;
+    border-radius: 10px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus-within {
+      border-color: $green;
+      box-shadow: 0 0 0 3px rgba($green, 0.1);
+    }
+
+    &--error {
+      border-color: $error;
+      &:focus-within { box-shadow: 0 0 0 3px rgba($error, 0.1); }
+    }
+  }
+
+  &__field-icon {
+    flex-shrink: 0;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    margin-left: 12px;
+    color: $text-3;
+    transition: color 0.2s;
+
+    .cfd__input-wrap:focus-within & { color: $green; }
+  }
+
+  &__input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 13px 14px;
+    font-family: inherit;
+    font-size: 15px;
+    color: $text-1;
+    box-shadow: none;
+    border-radius: 10px;
+
+    &::placeholder { color: $text-3; }
+  }
+
+  &__textarea {
+    width: 100%;
+    border: 1.5px solid $border;
+    border-radius: 10px;
+    padding: 13px 14px;
+    font-family: inherit;
+    font-size: 15px;
+    color: $text-1;
+    outline: none;
+    resize: none;
+    box-shadow: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &::placeholder { color: $text-3; }
+
+    &:focus {
+      border-color: $green;
+      box-shadow: 0 0 0 3px rgba($green, 0.1);
+    }
+  }
+
+  &__error {
+    font-size: 12px;
+    color: $error;
+    margin-top: 2px;
+  }
+
+  // ── Privacy note ──────────────────────────────────────
+
+  &__privacy {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: $green-lt;
+    border-radius: 8px;
+    margin-top: 2px;
+
+    mat-icon {
+      flex-shrink: 0;
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+      color: $green;
+    }
+
+    span {
+      font-size: 12px;
+      color: darken(#077506, 4%);
+      line-height: 1.5;
+    }
+  }
+
+  // ── Submit button ─────────────────────────────────────
+
+  &__submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: $green;
+    color: #fff;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    margin-top: 4px;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      flex-shrink: 0;
+    }
+
+    &:hover:not(:disabled) {
+      background: darken(#077506, 8%);
+      box-shadow: 0 4px 16px rgba(7, 117, 6, 0.3);
+    }
+
+    &:disabled {
+      background: #d1d5db;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// ── Mobile ────────────────────────────────────────────────
+
+@media (max-width: 480px) {
+  .cfd {
+    padding: 28px 20px 24px;
   }
 }
