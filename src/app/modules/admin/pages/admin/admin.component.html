@@ -1,18 +1,8 @@
 <section class="admin-shell">
-  <!-- ── Auth checking loader ── -->
-  <div *ngIf="authChecking" class="auth-loader">
-    <div class="auth-loader__card">
-      <div class="auth-loader__rings">
-        <span class="ring ring--1"></span>
-        <span class="ring ring--2"></span>
-        <span class="ring ring--3"></span>
-        <span class="ring__dot"></span>
-      </div>
-      <span class="auth-loader__label">Перевірка авторизації…</span>
-    </div>
-  </div>
+  <!-- Auth loader -->
+  <app-admin-auth-loader *ngIf="authChecking"></app-admin-auth-loader>
 
-  <!-- ── Header ── -->
+  <!-- Header -->
   <header class="admin-header" *ngIf="!authChecking">
     <div class="header-brand">
       <span class="admin-badge">Адмін · Прайс-лист</span>
@@ -20,17 +10,11 @@
     </div>
     <nav class="header-nav">
       <a class="btn-ghost" routerLink="/">← На головну</a>
-      <button
-        *ngIf="isAdmin"
-        class="btn-ghost btn-ghost--danger"
-        (click)="signOut()"
-      >
-        Вийти
-      </button>
+      <button *ngIf="isAdmin" class="btn-ghost btn-ghost--danger" (click)="signOut()">Вийти</button>
     </nav>
   </header>
 
-  <!-- ── Alert ── -->
+  <!-- Alert -->
   <div
     *ngIf="statusMessage && !authChecking"
     class="admin-alert"
@@ -41,240 +25,41 @@
     {{ statusMessage }}
   </div>
 
-  <!-- ── Authenticated admin editor ── -->
+  <!-- Admin editor -->
   <ng-container *ngIf="!authChecking && isAdmin; else loginOrChecking">
-    <!-- Toolbar -->
-    <div class="editor-toolbar">
-      <span class="toolbar-count" *ngIf="activeService">
-        {{ activeService.list.length }}&nbsp;позицій у розділі
-      </span>
-      <div class="toolbar-actions">
-        <button class="btn-add" (click)="openAddDialog()">
-          <svg
-            class="btn-icon-svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-          >
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
-          Додати позицію
-        </button>
-        <button
-          class="btn-review"
-          (click)="openReviewDialog()"
-          [disabled]="saving"
-          *ngIf="!saving"
-        >
-          <svg
-            class="btn-icon-svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-            <circle cx="12" cy="12" r="3"></circle>
-          </svg>
-          Переглянути
-          <span class="review-badge" *ngIf="totalChanges > 0">{{
-            totalChanges
-          }}</span>
-        </button>
-        <span class="toolbar-saving" *ngIf="saving">
-          <span class="saving-spinner"></span>
-          Збереження…
-        </span>
-      </div>
-    </div>
-
-    <!-- Loading -->
-    <div *ngIf="loading" class="loading-state">
-      <span class="loading-spinner"></span>
-      Завантаження прайсу...
-    </div>
-
-    <!-- Price editor -->
-    <div *ngIf="!loading" class="price-editor">
-      <!-- Tabs -->
-      <div class="tabs" role="tablist">
-        <button
-          *ngFor="let name of tabNames; let i = index"
-          class="tab-btn"
-          [class.tab-btn--active]="activeTab === i"
-          (click)="activeTab = i"
-          role="tab"
-          [attr.aria-selected]="activeTab === i"
-        >
-          {{ name }}
-          <span class="tab-count">{{ services[i].list.length }}</span>
-        </button>
-      </div>
-
-      <!-- Price list -->
-      <div class="price-list" *ngIf="activeService">
-        <ng-container *ngFor="let item of activeService.list; let i = index">
-          <!-- Category group with children -->
-          <ng-container *ngIf="item.list && item.list.length > 0">
-            <div class="group-header">
-              <span class="group-header__title">{{ item.title }}</span>
-              <button
-                class="btn-delete"
-                (click)="requestRemoveTopLevelItem(activeTab, i)"
-                title="Видалити групу з усіма підпозиціями"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                >
-                  <polyline points="3 6 5 6 21 6"></polyline>
-                  <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path>
-                  <path d="M10 11v6M14 11v6"></path>
-                  <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"></path>
-                </svg>
-              </button>
-            </div>
-            <div
-              *ngFor="let child of item.list; let j = index"
-              class="price-row price-row--child"
-            >
-              <span class="row-title">{{ child.title }}</span>
-              <div class="row-controls">
-                <div class="price-field" *ngIf="child.editable">
-                  <input
-                    [(ngModel)]="child.price"
-                    class="price-input"
-                    placeholder="0"
-                    inputmode="decimal"
-                  />
-                  <span class="price-currency">грн</span>
-                </div>
-                <button
-                  class="btn-delete"
-                  (click)="requestRemoveChildItem(activeTab, i, j)"
-                  title="Видалити підпозицію"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                  >
-                    <polyline points="3 6 5 6 21 6"></polyline>
-                    <path
-                      d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"
-                    ></path>
-                    <path d="M10 11v6M14 11v6"></path>
-                    <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </ng-container>
-
-          <!-- Single row or empty category header -->
-          <div
-            *ngIf="!item.list || item.list.length === 0"
-            class="price-row"
-            [class.price-row--muted]="!item.editable"
-          >
-            <span class="row-title">{{ item.title }}</span>
-            <div class="row-controls">
-              <div class="price-field" *ngIf="item.editable">
-                <input
-                  [(ngModel)]="item.price"
-                  class="price-input"
-                  placeholder="0"
-                  inputmode="decimal"
-                />
-                <span class="price-currency">грн</span>
-              </div>
-              <span *ngIf="!item.editable" class="row-meta">категорія</span>
-              <button
-                class="btn-delete"
-                (click)="requestRemoveTopLevelItem(activeTab, i)"
-                title="Видалити позицію"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                >
-                  <polyline points="3 6 5 6 21 6"></polyline>
-                  <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path>
-                  <path d="M10 11v6M14 11v6"></path>
-                  <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"></path>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </ng-container>
-
-        <!-- Empty state -->
-        <div *ngIf="activeService.list.length === 0" class="empty-state">
-          <svg
-            viewBox="0 0 48 48"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-          >
-            <rect x="6" y="10" width="36" height="32" rx="3"></rect>
-            <line x1="6" y1="18" x2="42" y2="18"></line>
-            <line x1="14" y1="26" x2="28" y2="26"></line>
-            <line x1="14" y1="32" x2="22" y2="32"></line>
-          </svg>
-          <p>Список порожній. Додайте першу позицію.</p>
-          <button class="btn-add btn-add--sm" (click)="openAddDialog()">
-            + Додати позицію
-          </button>
-        </div>
-      </div>
-    </div>
+    <app-admin-price-editor
+      [services]="services"
+      [activeTab]="activeTab"
+      [loading]="loading"
+      [saving]="saving"
+      [totalChanges]="totalChanges"
+      [hasChanges]="hasChanges"
+      (activeTabChange)="activeTab = $event"
+      (openAdd)="showAddDialog = true"
+      (openReview)="showReviewDialog = true"
+      (removeTopLevel)="onRemoveTopLevel($event)"
+      (removeChild)="onRemoveChild($event)"
+    ></app-admin-price-editor>
   </ng-container>
 
-  <!-- ── Login view ── -->
+  <!-- Login view -->
   <ng-template #loginOrChecking>
     <ng-container *ngIf="!authChecking">
       <div class="login-panel">
         <div class="login-icon">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-          >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0110 0v4"></path>
           </svg>
         </div>
         <h2>Захищений доступ</h2>
-        <p>
-          Редагування прайс-листу доступне лише для адміністраторів. Увійдіть
-          через Google, щоб продовжити.
-        </p>
+        <p>Редагування прайс-листу доступне лише для адміністраторів. Увійдіть через Google, щоб продовжити.</p>
         <button class="btn-google" (click)="signIn()">
           <svg viewBox="0 0 24 24" width="18" height="18">
-            <path
-              fill="#4285F4"
-              d="M23.745 12.27c0-.816-.069-1.636-.209-2.438H12.24v4.621h6.45c-.28 1.524-1.12 2.82-2.37 3.676v3.048h3.83c2.238-2.06 3.595-5.097 3.595-8.907z"
-            />
-            <path
-              fill="#34A853"
-              d="M12.24 24c3.222 0 5.929-1.062 7.906-2.891l-3.83-2.971c-1.065.716-2.432 1.14-4.076 1.14-3.13 0-5.783-2.115-6.73-4.96H1.567v3.057C3.54 21.37 7.638 24 12.24 24z"
-            />
-            <path
-              fill="#FBBC05"
-              d="M5.51 14.318a7.175 7.175 0 010-4.59V6.669H1.567a12.034 12.034 0 000 10.705l3.943-3.056z"
-            />
-            <path
-              fill="#EA4335"
-              d="M12.24 4.76a6.53 6.53 0 014.614 1.804l3.44-3.44A11.582 11.582 0 0012.24 0C7.638 0 3.54 2.629 1.567 6.669L5.51 7.727c.947-2.845 3.6-4.967 6.73-4.967z"
-            />
+            <path fill="#4285F4" d="M23.745 12.27c0-.816-.069-1.636-.209-2.438H12.24v4.621h6.45c-.28 1.524-1.12 2.82-2.37 3.676v3.048h3.83c2.238-2.06 3.595-5.097 3.595-8.907z"/>
+            <path fill="#34A853" d="M12.24 24c3.222 0 5.929-1.062 7.906-2.891l-3.83-2.971c-1.065.716-2.432 1.14-4.076 1.14-3.13 0-5.783-2.115-6.73-4.96H1.567v3.057C3.54 21.37 7.638 24 12.24 24z"/>
+            <path fill="#FBBC05" d="M5.51 14.318a7.175 7.175 0 010-4.59V6.669H1.567a12.034 12.034 0 000 10.705l3.943-3.056z"/>
+            <path fill="#EA4335" d="M12.24 4.76a6.53 6.53 0 014.614 1.804l3.44-3.44A11.582 11.582 0 0012.24 0C7.638 0 3.54 2.629 1.567 6.669L5.51 7.727c.947-2.845 3.6-4.967 6.73-4.967z"/>
           </svg>
           Увійти з Google
         </button>
@@ -283,384 +68,27 @@
   </ng-template>
 </section>
 
-<!-- ── Add Position Dialog ── -->
-<div *ngIf="showAddDialog" class="dialog-overlay" (click)="closeAddDialog()">
-  <div
-    class="dialog-card"
-    (click)="$event.stopPropagation()"
-    role="dialog"
-    aria-labelledby="dialog-title"
-  >
-    <div class="dialog-header">
-      <h3 id="dialog-title" class="dialog-title">Нова позиція</h3>
-      <button
-        class="dialog-close"
-        (click)="closeAddDialog()"
-        aria-label="Закрити"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-    </div>
+<!-- Dialogs -->
+<app-admin-add-dialog
+  *ngIf="showAddDialog"
+  [services]="services"
+  [initialGroupIndex]="activeTab"
+  (close)="showAddDialog = false"
+  (confirm)="onAddConfirm($event)"
+></app-admin-add-dialog>
 
-    <div class="dialog-body">
-      <div class="form-group">
-        <label class="form-label">Розділ прайсу</label>
-        <div class="group-pills">
-          <button
-            *ngFor="let name of tabNames; let i = index"
-            class="group-pill"
-            [class.group-pill--active]="dialogGroupIndex === i"
-            (click)="setDialogGroup(i)"
-            type="button"
-          >
-            {{ name }}
-          </button>
-        </div>
-      </div>
+<app-admin-delete-dialog
+  *ngIf="showDeleteDialog && deleteTarget"
+  [target]="deleteTarget!"
+  (close)="closeDeleteDialog()"
+  (confirm)="confirmDelete()"
+></app-admin-delete-dialog>
 
-      <div class="form-group">
-        <label class="form-label">Підгрупа</label>
-        <div class="parent-select">
-          <button
-            class="parent-option"
-            [class.parent-option--active]="dialogParentId === null"
-            (click)="dialogParentId = null"
-            type="button"
-          >
-            <span class="parent-option__check">✓</span>
-            Загальний розділ
-          </button>
-          <button
-            *ngFor="let opt of dialogParentOptions"
-            class="parent-option"
-            [class.parent-option--active]="dialogParentId === opt.id"
-            (click)="dialogParentId = opt.id"
-            type="button"
-          >
-            <span class="parent-option__check">✓</span>
-            {{ opt.title }}
-          </button>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="dialog-desc">Назва послуги</label>
-        <input
-          id="dialog-desc"
-          [(ngModel)]="dialogTitle"
-          class="form-input"
-          [class.form-input--error]="dialogSubmitted && !dialogTitle.trim()"
-          placeholder="Наприклад: Консультація"
-          autocomplete="off"
-        />
-        <span class="form-error" *ngIf="dialogSubmitted && !dialogTitle.trim()">
-          Вкажіть назву послуги
-        </span>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="dialog-price">Ціна</label>
-        <div class="dialog-price-wrap">
-          <input
-            id="dialog-price"
-            [(ngModel)]="dialogPrice"
-            class="form-input"
-            [class.form-input--error]="dialogSubmitted && !dialogPrice.trim()"
-            placeholder="0"
-            inputmode="decimal"
-            autocomplete="off"
-          />
-          <span class="dialog-price-suffix">грн</span>
-        </div>
-        <span class="form-error" *ngIf="dialogSubmitted && !dialogPrice.trim()">
-          Вкажіть ціну
-        </span>
-      </div>
-    </div>
-
-    <div class="dialog-footer">
-      <button class="btn-ghost" (click)="closeAddDialog()">Скасувати</button>
-      <button class="btn-primary" (click)="confirmAddItem()">
-        Додати позицію
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- ── Delete Confirmation Dialog ── -->
-<div
-  *ngIf="showDeleteDialog"
-  class="dialog-overlay"
-  (click)="closeDeleteDialog()"
->
-  <div
-    class="dialog-card dialog-card--danger"
-    (click)="$event.stopPropagation()"
-    role="alertdialog"
-    aria-labelledby="del-dialog-title"
-    aria-describedby="del-dialog-desc"
-  >
-    <div class="dialog-header">
-      <div class="del-icon-wrap">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-        >
-          <polyline points="3 6 5 6 21 6"></polyline>
-          <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path>
-          <path d="M10 11v6M14 11v6"></path>
-          <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"></path>
-        </svg>
-      </div>
-      <button
-        class="dialog-close"
-        (click)="closeDeleteDialog()"
-        aria-label="Закрити"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-    </div>
-
-    <div class="dialog-body" *ngIf="deleteTarget">
-      <h3 id="del-dialog-title" class="del-title">Видалити позицію?</h3>
-      <p id="del-dialog-desc" class="del-subtitle">Ви збираєтесь видалити:</p>
-      <div class="del-item-card">
-        <span class="del-item-name">{{ deleteTarget.label }}</span>
-        <span *ngIf="deleteTarget.childCount > 0" class="del-item-badge">
-          + {{ deleteTarget.childCount }}&nbsp;підпозиці{{
-            deleteTarget.childCount === 1
-              ? "я"
-              : deleteTarget.childCount < 5
-                ? "ї"
-                : "й"
-          }}
-        </span>
-      </div>
-      <p class="del-warning">
-        Цю дію не можна скасувати без збереження. Зміни набудуть чинності після
-        натискання «Зберегти».
-      </p>
-    </div>
-
-    <div class="dialog-footer">
-      <button class="btn-ghost" (click)="closeDeleteDialog()">Скасувати</button>
-      <button class="btn-danger" (click)="confirmDelete()">
-        <svg
-          class="btn-icon-svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <polyline points="3 6 5 6 21 6"></polyline>
-          <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path>
-          <path d="M10 11v6M14 11v6"></path>
-          <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"></path>
-        </svg>
-        Так, видалити
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- ── Review Changes Dialog ── -->
-<div
+<app-admin-review-dialog
   *ngIf="showReviewDialog"
-  class="dialog-overlay"
-  (click)="closeReviewDialog()"
->
-  <div
-    class="dialog-card dialog-card--review"
-    (click)="$event.stopPropagation()"
-    role="dialog"
-    aria-labelledby="review-dialog-title"
-  >
-    <div class="dialog-header">
-      <div class="review-header-left">
-        <div class="review-icon-wrap">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-          >
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-            <circle cx="12" cy="12" r="3"></circle>
-          </svg>
-        </div>
-        <div>
-          <h3 id="review-dialog-title" class="dialog-title">Огляд змін</h3>
-          <p class="review-subtitle" *ngIf="hasChanges">
-            {{ totalChanges }}&nbsp;{{
-              totalChanges === 1 ? "зміна" : totalChanges < 5 ? "зміни" : "змін"
-            }}
-            готові до збереження
-          </p>
-          <p class="review-subtitle" *ngIf="!hasChanges">
-            Жодних змін не виявлено
-          </p>
-        </div>
-      </div>
-      <button
-        class="dialog-close"
-        (click)="closeReviewDialog()"
-        aria-label="Закрити"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-    </div>
-
-    <div class="dialog-body review-body" *ngIf="changeReview as review">
-      <!-- No changes -->
-      <div *ngIf="!hasChanges" class="review-empty">
-        <svg
-          viewBox="0 0 48 48"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-        >
-          <circle cx="24" cy="24" r="18"></circle>
-          <path d="M16 24l6 6 10-12"></path>
-        </svg>
-        <p>Ціни не змінювались. Нічого зберігати.</p>
-      </div>
-
-      <!-- Modified prices -->
-      <div *ngIf="review.modified.length > 0" class="review-section">
-        <div class="review-section__header review-section__header--modified">
-          <svg viewBox="0 0 16 16" fill="currentColor">
-            <path
-              d="M12.146 1.146a.5.5 0 01.708 0l2 2a.5.5 0 010 .708l-9 9a.5.5 0 01-.212.13l-3 1a.5.5 0 01-.631-.63l1-3a.5.5 0 01.13-.213l9-9z"
-            />
-          </svg>
-          Змінені ціни
-          <span class="review-section__count">{{
-            review.modified.length
-          }}</span>
-        </div>
-        <div class="review-rows">
-          <div
-            *ngFor="let item of review.modified"
-            class="review-row review-row--modified"
-          >
-            <span class="review-row__title">{{ item.title }}</span>
-            <span class="review-row__diff">
-              <span class="diff-old">{{ item.oldPrice }}&nbsp;грн</span>
-              <svg
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                class="diff-arrow"
-              >
-                <line x1="3" y1="8" x2="13" y2="8"></line>
-                <polyline points="9 4 13 8 9 12"></polyline>
-              </svg>
-              <span class="diff-new">{{ item.newPrice }}&nbsp;грн</span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Added items -->
-      <div *ngIf="review.added.length > 0" class="review-section">
-        <div class="review-section__header review-section__header--added">
-          <svg viewBox="0 0 16 16" fill="currentColor">
-            <path
-              d="M8 1.5a.5.5 0 01.5.5v5.5H14a.5.5 0 010 1H8.5V14a.5.5 0 01-1 0V8.5H2a.5.5 0 010-1h5.5V2a.5.5 0 01.5-.5z"
-            />
-          </svg>
-          Нові позиції
-          <span class="review-section__count">{{ review.added.length }}</span>
-        </div>
-        <div class="review-rows">
-          <div
-            *ngFor="let item of review.added"
-            class="review-row review-row--added"
-          >
-            <span class="review-row__title">
-              {{ item.title }}
-              <span class="review-row__meta" *ngIf="item.parentTitle"
-                >&nbsp;→ {{ item.parentTitle }}</span
-              >
-              <span class="review-row__group">{{ item.groupName }}</span>
-            </span>
-            <span class="diff-new">{{ item.price }}&nbsp;грн</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Removed items -->
-      <div *ngIf="review.removed.length > 0" class="review-section">
-        <div class="review-section__header review-section__header--removed">
-          <svg viewBox="0 0 16 16" fill="currentColor">
-            <path d="M2 8a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11A.5.5 0 012 8z" />
-          </svg>
-          Видалені позиції
-          <span class="review-section__count">{{ review.removed.length }}</span>
-        </div>
-        <div class="review-rows">
-          <div
-            *ngFor="let item of review.removed"
-            class="review-row review-row--removed"
-          >
-            <span class="review-row__title">{{ item.title }}</span>
-            <span class="diff-removed">видалено</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="dialog-footer">
-      <button class="btn-ghost" (click)="closeReviewDialog()">
-        Продовжити редагування
-      </button>
-      <button
-        class="btn-primary"
-        (click)="savePrices()"
-        [disabled]="!hasChanges"
-      >
-        <svg
-          class="btn-icon-svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path
-            d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"
-          ></path>
-          <polyline points="17 21 17 13 7 13 7 21"></polyline>
-          <polyline points="7 3 7 8 15 8"></polyline>
-        </svg>
-        Зберегти зміни
-      </button>
-    </div>
-  </div>
-</div>
+  [review]="changeReview"
+  [hasChanges]="hasChanges"
+  [totalChanges]="totalChanges"
+  (close)="showReviewDialog = false"
+  (save)="savePrices()"
+></app-admin-review-dialog>

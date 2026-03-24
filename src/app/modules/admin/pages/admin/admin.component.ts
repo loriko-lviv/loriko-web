@@ -29,22 +29,14 @@ export class AdminComponent implements OnDestroy {
   statusTone: 'error' | 'success' | '' = '';
 
   activeTab = 0;
-
-  showAddDialog = false;
-  dialogGroupIndex = 0;
-  dialogParentId: string | null = null;
-  dialogTitle = '';
-  dialogPrice = '';
-  dialogSubmitted = false;
-
   removedIds: string[] = [];
   customItems: CustomItem[] = [];
 
+  showAddDialog = false;
   showDeleteDialog = false;
+  showReviewDialog = false;
   deleteTarget: { label: string; childCount: number } | null = null;
   private pendingDelete: (() => void) | null = null;
-
-  showReviewDialog = false;
 
   private originalPrices: Record<string, string> = {};
   private originalIdTitleMap: Record<string, string> = {};
@@ -87,53 +79,25 @@ export class AdminComponent implements OnDestroy {
       });
   }
 
-  get tabNames(): string[] {
-    return this.services.map((s) => s.type);
-  }
-
-  get activeService(): ServiceTypeWithId | null {
-    return this.services[this.activeTab] ?? null;
-  }
-
-  get changeReview(): {
-    modified: { title: string; oldPrice: string; newPrice: string }[];
-    removed: { title: string }[];
-    added: {
-      title: string;
-      price: string;
-      groupName: string;
-      parentTitle?: string;
-    }[];
-  } {
+  get changeReview() {
     const currentPrices = extractPrices(this.services);
-
     const modified = Object.entries(currentPrices)
-      .filter(
-        ([id, price]) =>
-          id in this.originalPrices && this.originalPrices[id] !== price,
-      )
+      .filter(([id, price]) => id in this.originalPrices && this.originalPrices[id] !== price)
       .map(([id, price]) => ({
         title: this.originalIdTitleMap[id] ?? id,
         oldPrice: this.originalPrices[id],
         newPrice: price,
       }));
-
-    const removed = this.removedIds.map((id) => ({
-      title: this.originalIdTitleMap[id] ?? id,
-    }));
-
+    const removed = this.removedIds.map((id) => ({ title: this.originalIdTitleMap[id] ?? id }));
     const added = this.customItems.map((c) => ({
       title: c.title,
       price: c.price,
       groupName: this.services[c.groupIndex]?.type ?? '',
       parentTitle: c.parentItemId
         ? this.originalIdTitleMap[c.parentItemId] ||
-          this.services[c.groupIndex]?.list.find(
-            (item) => item.id === c.parentItemId,
-          )?.title
+          this.services[c.groupIndex]?.list.find((item) => item.id === c.parentItemId)?.title
         : undefined,
     }));
-
     return { modified, removed, added };
   }
 
@@ -145,25 +109,6 @@ export class AdminComponent implements OnDestroy {
   get totalChanges(): number {
     const r = this.changeReview;
     return r.modified.length + r.removed.length + r.added.length;
-  }
-
-  openReviewDialog() {
-    this.showReviewDialog = true;
-  }
-
-  closeReviewDialog() {
-    this.showReviewDialog = false;
-  }
-
-  get dialogParentOptions(): Array<{ id: string; title: string }> {
-    return (this.services[this.dialogGroupIndex]?.list ?? [])
-      .filter((item) => item.list && item.list.length > 0)
-      .map((item) => ({ id: item.id, title: item.title }));
-  }
-
-  setDialogGroup(i: number) {
-    this.dialogGroupIndex = i;
-    this.dialogParentId = null;
   }
 
   signIn() {
@@ -180,33 +125,28 @@ export class AdminComponent implements OnDestroy {
     return this.auth.signOut();
   }
 
-  requestRemoveTopLevelItem(serviceIndex: number, itemIndex: number) {
-    const service = this.services[serviceIndex];
-    const item = service?.list[itemIndex];
+  onRemoveTopLevel(event: { serviceIndex: number; itemIndex: number }) {
+    const service = this.services[event.serviceIndex];
+    const item = service?.list[event.itemIndex];
     if (!item) return;
-    const childCount = item.list?.length ?? 0;
-    this.deleteTarget = { label: item.title, childCount };
+    this.deleteTarget = { label: item.title, childCount: item.list?.length ?? 0 };
     this.pendingDelete = () => {
       this.removedIds.push(item.id);
       item.list?.forEach((child) => this.removedIds.push(child.id));
-      service.list.splice(itemIndex, 1);
+      service.list.splice(event.itemIndex, 1);
     };
     this.showDeleteDialog = true;
   }
 
-  requestRemoveChildItem(
-    serviceIndex: number,
-    parentIndex: number,
-    childIndex: number,
-  ) {
-    const parent = this.services[serviceIndex]?.list[parentIndex];
+  onRemoveChild(event: { serviceIndex: number; parentIndex: number; childIndex: number }) {
+    const parent = this.services[event.serviceIndex]?.list[event.parentIndex];
     if (!parent?.list) return;
-    const child = parent.list[childIndex];
+    const child = parent.list[event.childIndex];
     if (!child) return;
     this.deleteTarget = { label: child.title, childCount: 0 };
     this.pendingDelete = () => {
       this.removedIds.push(child.id);
-      parent.list!.splice(childIndex, 1);
+      parent.list!.splice(event.childIndex, 1);
     };
     this.showDeleteDialog = true;
   }
@@ -222,52 +162,24 @@ export class AdminComponent implements OnDestroy {
     this.pendingDelete = null;
   }
 
-  openAddDialog() {
-    this.dialogGroupIndex = this.activeTab;
-    this.dialogParentId = null;
-    this.dialogTitle = '';
-    this.dialogPrice = '';
-    this.dialogSubmitted = false;
-    this.showAddDialog = true;
-  }
-
-  closeAddDialog() {
-    this.showAddDialog = false;
-  }
-
-  confirmAddItem() {
-    this.dialogSubmitted = true;
-    if (!this.dialogTitle.trim() || !this.dialogPrice.trim()) return;
-
+  onAddConfirm(data: { groupIndex: number; parentId: string | null; title: string; price: string }) {
     const id = `custom-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     const newCustom: CustomItem = {
       id,
-      groupIndex: this.dialogGroupIndex,
-      ...(this.dialogParentId ? { parentItemId: this.dialogParentId } : {}),
-      title: this.dialogTitle.trim(),
-      price: this.dialogPrice.trim(),
+      groupIndex: data.groupIndex,
+      ...(data.parentId ? { parentItemId: data.parentId } : {}),
+      title: data.title,
+      price: data.price,
     };
-    const newItem: ServiceListItemWithId = {
-      id,
-      title: newCustom.title,
-      price: newCustom.price,
-      editable: true,
-    };
-
+    const newItem: ServiceListItemWithId = { id, title: data.title, price: data.price, editable: true };
     this.customItems.push(newCustom);
-
-    if (this.dialogParentId) {
-      const parent = this.services[this.dialogGroupIndex].list.find(
-        (item) => item.id === this.dialogParentId,
-      );
-      if (parent) {
-        parent.list = [...(parent.list ?? []), newItem];
-      }
+    if (data.parentId) {
+      const parent = this.services[data.groupIndex].list.find((item) => item.id === data.parentId);
+      if (parent) parent.list = [...(parent.list ?? []), newItem];
     } else {
-      this.services[this.dialogGroupIndex].list.push(newItem);
+      this.services[data.groupIndex].list.push(newItem);
     }
-
-    this.activeTab = this.dialogGroupIndex;
+    this.activeTab = data.groupIndex;
     this.showAddDialog = false;
   }
 
@@ -277,27 +189,16 @@ export class AdminComponent implements OnDestroy {
     this.saving = true;
     this.statusMessage = '';
     this.statusTone = '';
-
-    const prices = extractPrices(this.services);
     const state: PricingState = {
-      prices,
+      prices: extractPrices(this.services),
       removed: this.removedIds,
       custom: this.customItems,
     };
-
     this.pricingService
       .updateState(state)
-      .then(() => {
-        this.statusMessage = 'Ціни успішно збережено.';
-        this.statusTone = 'success';
-      })
-      .catch(() => {
-        this.statusMessage = 'Не вдалося зберегти. Спробуйте ще раз.';
-        this.statusTone = 'error';
-      })
-      .finally(() => {
-        this.saving = false;
-      });
+      .then(() => { this.statusMessage = 'Ціни успішно збережено.'; this.statusTone = 'success'; })
+      .catch(() => { this.statusMessage = 'Не вдалося зберегти. Спробуйте ще раз.'; this.statusTone = 'error'; })
+      .finally(() => { this.saving = false; });
   }
 
   ngOnDestroy() {
@@ -312,7 +213,6 @@ export class AdminComponent implements OnDestroy {
         this.removedIds = [...(state.removed ?? [])];
         this.customItems = [...(state.custom ?? [])];
         this.services = buildServicesWithIds(state);
-        // Snapshot for change-review diff
         this.originalPrices = { ...state.prices };
         const visitItems = (items: ServiceListItemWithId[]) => {
           items.forEach((item) => {

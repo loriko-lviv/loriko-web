@@ -1,0 +1,97 @@
+<div class="dialog-overlay" (click)="close.emit()">
+  <div
+    class="dialog-card"
+    (click)="$event.stopPropagation()"
+    role="dialog"
+    aria-labelledby="add-dialog-title"
+  >
+    <div class="dialog-header">
+      <h3 id="add-dialog-title" class="dialog-title">Нова позиція</h3>
+      <button class="dialog-close" (click)="close.emit()" aria-label="Закрити">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <div class="dialog-body">
+      <!-- Section -->
+      <div class="form-group">
+        <label class="form-label">Розділ прайсу</label>
+        <div class="group-pills">
+          <button
+            *ngFor="let name of tabNames; let i = index"
+            class="group-pill"
+            [class.group-pill--active]="groupIndex === i"
+            (click)="setGroup(i)"
+            type="button"
+          >{{ name }}</button>
+        </div>
+      </div>
+
+      <!-- Subgroup -->
+      <div class="form-group">
+        <label class="form-label">Підгрупа</label>
+        <div class="parent-select">
+          <button
+            class="parent-option"
+            [class.parent-option--active]="parentId === null"
+            (click)="parentId = null"
+            type="button"
+          >
+            <span class="parent-option__check">✓</span>
+            Загальний розділ
+          </button>
+          <button
+            *ngFor="let opt of parentOptions"
+            class="parent-option"
+            [class.parent-option--active]="parentId === opt.id"
+            (click)="parentId = opt.id"
+            type="button"
+          >
+            <span class="parent-option__check">✓</span>
+            {{ opt.title }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Title -->
+      <div class="form-group">
+        <label class="form-label" for="add-dialog-title-input">Назва послуги</label>
+        <input
+          id="add-dialog-title-input"
+          [(ngModel)]="title"
+          class="form-input"
+          [class.form-input--error]="submitted && !title.trim()"
+          placeholder="Наприклад: Консультація"
+          autocomplete="off"
+        />
+        <span class="form-error" *ngIf="submitted && !title.trim()">Вкажіть назву послуги</span>
+      </div>
+
+      <!-- Price -->
+      <div class="form-group">
+        <label class="form-label" for="add-dialog-price">Ціна</label>
+        <div class="dialog-price-wrap">
+          <input
+            id="add-dialog-price"
+            [(ngModel)]="price"
+            class="form-input"
+            [class.form-input--error]="submitted && !price.trim()"
+            placeholder="0"
+            inputmode="decimal"
+            autocomplete="off"
+          />
+          <span class="dialog-price-suffix">грн</span>
+        </div>
+        <span class="form-error" *ngIf="submitted && !price.trim()">Вкажіть ціну</span>
+      </div>
+    </div>
+
+    <div class="dialog-footer">
+      <button class="btn-ghost" (click)="close.emit()">Скасувати</button>
+      <button class="btn-primary" (click)="onConfirm()">Додати позицію</button>
+    </div>
+  </div>
+</div>

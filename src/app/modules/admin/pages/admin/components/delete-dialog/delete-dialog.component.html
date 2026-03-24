@@ -1,0 +1,55 @@
+<div class="dialog-overlay" (click)="close.emit()">
+  <div
+    class="dialog-card dialog-card--danger"
+    (click)="$event.stopPropagation()"
+    role="alertdialog"
+    aria-labelledby="del-dialog-title"
+    aria-describedby="del-dialog-desc"
+  >
+    <div class="dialog-header">
+      <div class="del-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <polyline points="3 6 5 6 21 6"></polyline>
+          <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path>
+          <path d="M10 11v6M14 11v6"></path>
+          <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"></path>
+        </svg>
+      </div>
+      <button class="dialog-close" (click)="close.emit()" aria-label="Закрити">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <div class="dialog-body">
+      <h3 id="del-dialog-title" class="del-title">Видалити позицію?</h3>
+      <p id="del-dialog-desc" class="del-subtitle">Ви збираєтесь видалити:</p>
+      <div class="del-item-card">
+        <span class="del-item-name">{{ target.label }}</span>
+        <span *ngIf="target.childCount > 0" class="del-item-badge">
+          + {{ target.childCount }}&nbsp;підпозиці{{
+            target.childCount === 1 ? 'я' : target.childCount < 5 ? 'ї' : 'й'
+          }}
+        </span>
+      </div>
+      <p class="del-warning">
+        Цю дію не можна скасувати без збереження. Зміни набудуть чинності після натискання «Зберегти».
+      </p>
+    </div>
+
+    <div class="dialog-footer">
+      <button class="btn-ghost" (click)="close.emit()">Скасувати</button>
+      <button class="btn-danger" (click)="confirm.emit()">
+        <svg class="btn-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="3 6 5 6 21 6"></polyline>
+          <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path>
+          <path d="M10 11v6M14 11v6"></path>
+          <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"></path>
+        </svg>
+        Так, видалити
+      </button>
+    </div>
+  </div>
+</div>
