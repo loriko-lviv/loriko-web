@@ -95,7 +95,13 @@ export class OurServicesComponent implements OnDestroy {
     }
 
     if (!titleMatch) return null;
-    return { id: item.id, title: item.title, price: item.price, children: [], isGroup: false };
+    return {
+      id: item.id,
+      title: item.title,
+      price: item.price,
+      children: [],
+      isGroup: false,
+    };
   }
 
   private applyFilter(): void {

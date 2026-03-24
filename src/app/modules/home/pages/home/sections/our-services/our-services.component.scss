@@ -2,15 +2,17 @@
 // Our Services — premium redesign
 // ─────────────────────────────────────────────────────────────
 
-$green:    #077506;
+$green: #077506;
 $green-lt: #f0fdf4;
-$border:   #e5e7eb;
-$text-1:   #111827;
-$text-2:   #6b7280;
-$text-3:   #9ca3af;
-$radius:   16px;
+$border: #e5e7eb;
+$text-1: #111827;
+$text-2: #6b7280;
+$text-3: #9ca3af;
+$radius: 16px;
 
-:host { display: block; }
+:host {
+  display: block;
+}
 
 .svc {
   padding: 48px 16px 64px;
@@ -32,7 +34,9 @@ $radius:   16px;
     border: 1.5px solid $border;
     border-radius: 50px;
     padding: 0 18px;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
 
     &:focus-within,
     &--active {
@@ -48,7 +52,9 @@ $radius:   16px;
     flex-shrink: 0;
     transition: color 0.2s;
 
-    .svc__search:focus-within & { color: $green; }
+    .svc__search:focus-within & {
+      color: $green;
+    }
   }
 
   &__search-input {
@@ -62,7 +68,9 @@ $radius:   16px;
     color: $text-1;
     box-shadow: none;
 
-    &::placeholder { color: $text-3; }
+    &::placeholder {
+      color: $text-3;
+    }
   }
 
   &__search-clear {
@@ -78,9 +86,15 @@ $radius:   16px;
     flex-shrink: 0;
     transition: background 0.15s;
 
-    svg { width: 14px; height: 14px; color: $text-2; }
+    svg {
+      width: 14px;
+      height: 14px;
+      color: $text-2;
+    }
 
-    &:hover { background: #e5e7eb; }
+    &:hover {
+      background: #e5e7eb;
+    }
   }
 
   &__search-hint {
@@ -89,7 +103,9 @@ $radius:   16px;
     font-size: 13px;
     color: $text-2;
 
-    strong { color: $text-1; }
+    strong {
+      color: $text-1;
+    }
   }
 
   // ── Tabs ──────────────────────────────────────────────────
@@ -120,7 +136,7 @@ $radius:   16px;
     transition: color 0.2s;
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: -2px;
       left: 0;
@@ -132,11 +148,15 @@ $radius:   16px;
       transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    &:hover { color: $text-1; }
+    &:hover {
+      color: $text-1;
+    }
 
     &--active {
       color: $green;
-      &::after { transform: scaleX(1); }
+      &::after {
+        transform: scaleX(1);
+      }
     }
   }
 
@@ -191,8 +211,12 @@ $radius:   16px;
     border-bottom: 1px solid #f3f4f6;
     transition: background 0.14s ease;
 
-    &:last-child { border-bottom: none; }
-    &:hover { background: $green-lt; }
+    &:last-child {
+      border-bottom: none;
+    }
+    &:hover {
+      background: $green-lt;
+    }
 
     &--child {
       padding: 10px 32px 10px 48px;
@@ -203,7 +227,9 @@ $radius:   16px;
         font-weight: 400;
         color: #4b5563;
       }
-      .svc__row-price { font-size: 14px; }
+      .svc__row-price {
+        font-size: 14px;
+      }
     }
   }
 
@@ -237,11 +263,15 @@ $radius:   16px;
   &__group {
     border-bottom: 1px solid #eef0f3;
 
-    &:last-child { border-bottom: none; }
+    &:last-child {
+      border-bottom: none;
+    }
 
     .svc__row {
       border-bottom: none;
-      &:last-child { padding-bottom: 18px; }
+      &:last-child {
+        padding-bottom: 18px;
+      }
     }
   }
 
@@ -252,7 +282,7 @@ $radius:   16px;
     padding: 20px 32px 8px;
 
     &::after {
-      content: '';
+      content: "";
       flex: 1;
       height: 1px;
       background: linear-gradient(to right, $border, transparent);
@@ -303,7 +333,9 @@ $radius:   16px;
     font-weight: 500;
     color: $text-1;
     cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
+    transition:
+      border-color 0.2s,
+      background 0.2s;
 
     &:hover {
       border-color: $green;
@@ -316,8 +348,14 @@ $radius:   16px;
 // ── Animation ─────────────────────────────────────────────────
 
 @keyframes panelFadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 // ── Responsive ────────────────────────────────────────────────
@@ -334,13 +372,21 @@ $radius:   16px;
     &__row {
       padding: 13px 16px;
 
-      &--child { padding-left: 24px; }
+      &--child {
+        padding-left: 24px;
+      }
 
-      &-title { font-size: 14px; }
-      &-price { font-size: 14px; }
+      &-title {
+        font-size: 14px;
+      }
+      &-price {
+        font-size: 14px;
+      }
     }
 
-    &__group-header { padding: 16px 16px 6px; }
+    &__group-header {
+      padding: 16px 16px 6px;
+    }
   }
 }
 
@@ -368,7 +414,7 @@ $radius:   16px;
   transition: color 0.22s ease;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -2px;
     left: 0;
@@ -379,12 +425,16 @@ $radius:   16px;
     transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  &:hover { color: #374151; }
+  &:hover {
+    color: #374151;
+  }
 
   &--active {
     color: #077506;
 
-    &::after { transform: scaleX(1); }
+    &::after {
+      transform: scaleX(1);
+    }
   }
 }
 
@@ -402,7 +452,9 @@ $radius:   16px;
 .panel {
   display: none;
 
-  &--active { display: block; }
+  &--active {
+    display: block;
+  }
 }
 
 // ─── Price rows ──────────────────────────────────────────────────────────────
@@ -414,9 +466,13 @@ $radius:   16px;
   border-bottom: 1px solid #f3f4f6;
   transition: background 0.15s ease;
 
-  &:last-child { border-bottom: none; }
+  &:last-child {
+    border-bottom: none;
+  }
 
-  &:hover { background: #f0fdf4; }
+  &:hover {
+    background: #f0fdf4;
+  }
 
   &--sub {
     padding: 10px 28px 10px 40px;
@@ -427,7 +483,9 @@ $radius:   16px;
       font-size: 14px;
     }
 
-    .price-row__amount { font-size: 14px; }
+    .price-row__amount {
+      font-size: 14px;
+    }
   }
 
   &__title {
@@ -462,7 +520,9 @@ $radius:   16px;
 .price-group {
   border-bottom: 1px solid #e9ebee;
 
-  &:last-child { border-bottom: none; }
+  &:last-child {
+    border-bottom: none;
+  }
 
   &__header {
     padding: 18px 28px 6px;
@@ -476,14 +536,18 @@ $radius:   16px;
   .price-row {
     border-bottom: none;
 
-    &:last-child { padding-bottom: 16px; }
+    &:last-child {
+      padding-bottom: 16px;
+    }
   }
 }
 
 // ─── Responsive ──────────────────────────────────────────────────────────────
 
 @media (max-width: 600px) {
-  .services-section { padding: 32px 0; }
+  .services-section {
+    padding: 32px 0;
+  }
 
   .tab {
     padding: 11px 20px;
@@ -493,12 +557,20 @@ $radius:   16px;
   .price-row {
     padding: 12px 16px;
 
-    &--sub { padding-left: 24px; }
+    &--sub {
+      padding-left: 24px;
+    }
 
-    &__title { font-size: 14px; }
+    &__title {
+      font-size: 14px;
+    }
 
-    &__amount { font-size: 14px; }
+    &__amount {
+      font-size: 14px;
+    }
   }
 
-  .price-group__header { padding: 14px 16px 4px; }
+  .price-group__header {
+    padding: 14px 16px 4px;
+  }
 }
