@@ -1,6 +1,6 @@
-import {Component, OnDestroy} from '@angular/core';
-import {Subject, takeUntil} from 'rxjs';
-import {PricingService} from '../../../../../../services/pricing.service';
+import { Component, OnDestroy } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
+import { PricingService } from '../../../../../../services/pricing.service';
 import {
   buildServicesWithIds,
   ServiceTypeWithId,
@@ -16,10 +16,10 @@ export class OurServicesComponent implements OnDestroy {
   private readonly destroy$ = new Subject<void>();
 
   constructor(private pricingService: PricingService) {
-    this.pricingService.prices$
+    this.pricingService.state$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((prices) => {
-        this.services = buildServicesWithIds(prices);
+      .subscribe((state) => {
+        this.services = buildServicesWithIds(state);
       });
   }
 
