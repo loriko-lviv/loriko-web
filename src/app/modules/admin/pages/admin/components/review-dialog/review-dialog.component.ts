@@ -9,7 +9,12 @@ export class AdminReviewDialogComponent {
   @Input() review: {
     modified: { title: string; oldPrice: string; newPrice: string }[];
     removed: { title: string }[];
-    added: { title: string; price: string; groupName: string; parentTitle?: string }[];
+    added: {
+      title: string;
+      price: string;
+      groupName: string;
+      parentTitle?: string;
+    }[];
   } = { modified: [], removed: [], added: [] };
 
   @Input() hasChanges = false;

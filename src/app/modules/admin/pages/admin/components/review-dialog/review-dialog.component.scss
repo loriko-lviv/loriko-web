@@ -1,4 +1,4 @@
-@import '../../dialog';
+@import "../../dialog";
 
 // ─── Review variant ───────────────────────────────────────────────────────────
 
@@ -32,7 +32,10 @@
   color: var(--teal);
   flex-shrink: 0;
 
-  svg { width: 18px; height: 18px; }
+  svg {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 .review-subtitle {
@@ -59,15 +62,24 @@
   color: var(--muted);
   text-align: center;
 
-  svg { width: 40px; height: 40px; opacity: 0.25; }
-  p   { font-size: 0.88rem; margin: 0; }
+  svg {
+    width: 40px;
+    height: 40px;
+    opacity: 0.25;
+  }
+  p {
+    font-size: 0.88rem;
+    margin: 0;
+  }
 }
 
 // ─── Review Sections ──────────────────────────────────────────────────────────
 
 .review-section {
   border-bottom: 1px solid var(--line);
-  &:last-child { border-bottom: none; }
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .review-section__header {
@@ -80,11 +92,24 @@
   letter-spacing: 0.09em;
   text-transform: uppercase;
 
-  svg { width: 12px; height: 12px; flex-shrink: 0; }
+  svg {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+  }
 
-  &--modified { background: rgba(237, 165, 30, 0.06); color: #9a6b00; }
-  &--added    { background: rgba(47, 122, 106, 0.06);  color: var(--teal); }
-  &--removed  { background: rgba(201, 68, 56, 0.05);   color: var(--red); }
+  &--modified {
+    background: rgba(237, 165, 30, 0.06);
+    color: #9a6b00;
+  }
+  &--added {
+    background: rgba(47, 122, 106, 0.06);
+    color: var(--teal);
+  }
+  &--removed {
+    background: rgba(201, 68, 56, 0.05);
+    color: var(--red);
+  }
 }
 
 .review-section__count {
@@ -101,11 +126,19 @@
   color: #fff;
 }
 
-.review-section__header--modified .review-section__count { background: #9a6b00; }
-.review-section__header--added    .review-section__count { background: var(--teal); }
-.review-section__header--removed  .review-section__count { background: var(--red); }
+.review-section__header--modified .review-section__count {
+  background: #9a6b00;
+}
+.review-section__header--added .review-section__count {
+  background: var(--teal);
+}
+.review-section__header--removed .review-section__count {
+  background: var(--red);
+}
 
-.review-rows { padding: 4px 0; }
+.review-rows {
+  padding: 4px 0;
+}
 
 .review-row {
   display: flex;
@@ -117,8 +150,12 @@
   border-bottom: 1px solid var(--line);
   transition: background 0.12s;
 
-  &:last-child { border-bottom: none; }
-  &:hover { background: rgba(13, 28, 27, 0.018); }
+  &:last-child {
+    border-bottom: none;
+  }
+  &:hover {
+    background: rgba(13, 28, 27, 0.018);
+  }
 
   &--removed .review-row__title {
     color: var(--muted);
@@ -162,9 +199,22 @@
   flex-shrink: 0;
 }
 
-.diff-old    { font-size: 0.82rem; color: var(--muted); text-decoration: line-through; }
-.diff-arrow  { width: 13px; height: 13px; color: var(--muted); flex-shrink: 0; }
-.diff-new    { font-size: 0.875rem; font-weight: 700; color: var(--teal); }
+.diff-old {
+  font-size: 0.82rem;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.diff-arrow {
+  width: 13px;
+  height: 13px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.diff-new {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--teal);
+}
 .diff-removed {
   font-size: 0.78rem;
   font-weight: 700;
@@ -174,6 +224,13 @@
 }
 
 @media (max-width: 640px) {
-  .dialog-card { border-radius: 16px; }
-  .dialog-body, .dialog-header, .dialog-footer { padding-left: 18px; padding-right: 18px; }
+  .dialog-card {
+    border-radius: 16px;
+  }
+  .dialog-body,
+  .dialog-header,
+  .dialog-footer {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
 }

@@ -5,7 +5,13 @@
   </span>
   <div class="toolbar-actions">
     <button class="btn-add" (click)="openAdd.emit()">
-      <svg class="btn-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <svg
+        class="btn-icon-svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
         <line x1="12" y1="5" x2="12" y2="19"></line>
         <line x1="5" y1="12" x2="19" y2="12"></line>
       </svg>
@@ -17,12 +23,20 @@
       [disabled]="saving"
       *ngIf="!saving"
     >
-      <svg class="btn-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg
+        class="btn-icon-svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
         <circle cx="12" cy="12" r="3"></circle>
       </svg>
       Переглянути
-      <span class="review-badge" *ngIf="totalChanges > 0">{{ totalChanges }}</span>
+      <span class="review-badge" *ngIf="totalChanges > 0">{{
+        totalChanges
+      }}</span>
     </button>
     <span class="toolbar-saving" *ngIf="saving">
       <span class="saving-spinner"></span>
@@ -57,17 +71,23 @@
   <!-- Price list -->
   <div class="price-list" *ngIf="activeService">
     <ng-container *ngFor="let item of activeService.list; let i = index">
-
       <!-- Category group with children -->
       <ng-container *ngIf="item.list && item.list.length > 0">
         <div class="group-header">
           <span class="group-header__title">{{ item.title }}</span>
           <button
             class="btn-delete"
-            (click)="removeTopLevel.emit({ serviceIndex: activeTab, itemIndex: i })"
+            (click)="
+              removeTopLevel.emit({ serviceIndex: activeTab, itemIndex: i })
+            "
             title="Видалити групу з усіма підпозиціями"
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
               <polyline points="3 6 5 6 21 6"></polyline>
               <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path>
               <path d="M10 11v6M14 11v6"></path>
@@ -82,15 +102,31 @@
           <span class="row-title">{{ child.title }}</span>
           <div class="row-controls">
             <div class="price-field" *ngIf="child.editable">
-              <input [(ngModel)]="child.price" class="price-input" placeholder="0" inputmode="decimal" />
+              <input
+                [(ngModel)]="child.price"
+                class="price-input"
+                placeholder="0"
+                inputmode="decimal"
+              />
               <span class="price-currency">грн</span>
             </div>
             <button
               class="btn-delete"
-              (click)="removeChild.emit({ serviceIndex: activeTab, parentIndex: i, childIndex: j })"
+              (click)="
+                removeChild.emit({
+                  serviceIndex: activeTab,
+                  parentIndex: i,
+                  childIndex: j,
+                })
+              "
               title="Видалити підпозицію"
             >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              >
                 <polyline points="3 6 5 6 21 6"></polyline>
                 <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path>
                 <path d="M10 11v6M14 11v6"></path>
@@ -110,16 +146,28 @@
         <span class="row-title">{{ item.title }}</span>
         <div class="row-controls">
           <div class="price-field" *ngIf="item.editable">
-            <input [(ngModel)]="item.price" class="price-input" placeholder="0" inputmode="decimal" />
+            <input
+              [(ngModel)]="item.price"
+              class="price-input"
+              placeholder="0"
+              inputmode="decimal"
+            />
             <span class="price-currency">грн</span>
           </div>
           <span *ngIf="!item.editable" class="row-meta">категорія</span>
           <button
             class="btn-delete"
-            (click)="removeTopLevel.emit({ serviceIndex: activeTab, itemIndex: i })"
+            (click)="
+              removeTopLevel.emit({ serviceIndex: activeTab, itemIndex: i })
+            "
             title="Видалити позицію"
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
               <polyline points="3 6 5 6 21 6"></polyline>
               <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path>
               <path d="M10 11v6M14 11v6"></path>
@@ -128,12 +176,16 @@
           </button>
         </div>
       </div>
-
     </ng-container>
 
     <!-- Empty state -->
     <div *ngIf="activeService.list.length === 0" class="empty-state">
-      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+      <svg
+        viewBox="0 0 48 48"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
         <rect x="6" y="10" width="36" height="32" rx="3"></rect>
         <line x1="6" y1="18" x2="42" y2="18"></line>
         <line x1="14" y1="26" x2="28" y2="26"></line>

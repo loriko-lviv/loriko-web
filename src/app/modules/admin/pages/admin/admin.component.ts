@@ -82,20 +82,27 @@ export class AdminComponent implements OnDestroy {
   get changeReview() {
     const currentPrices = extractPrices(this.services);
     const modified = Object.entries(currentPrices)
-      .filter(([id, price]) => id in this.originalPrices && this.originalPrices[id] !== price)
+      .filter(
+        ([id, price]) =>
+          id in this.originalPrices && this.originalPrices[id] !== price,
+      )
       .map(([id, price]) => ({
         title: this.originalIdTitleMap[id] ?? id,
         oldPrice: this.originalPrices[id],
         newPrice: price,
       }));
-    const removed = this.removedIds.map((id) => ({ title: this.originalIdTitleMap[id] ?? id }));
+    const removed = this.removedIds.map((id) => ({
+      title: this.originalIdTitleMap[id] ?? id,
+    }));
     const added = this.customItems.map((c) => ({
       title: c.title,
       price: c.price,
       groupName: this.services[c.groupIndex]?.type ?? '',
       parentTitle: c.parentItemId
         ? this.originalIdTitleMap[c.parentItemId] ||
-          this.services[c.groupIndex]?.list.find((item) => item.id === c.parentItemId)?.title
+          this.services[c.groupIndex]?.list.find(
+            (item) => item.id === c.parentItemId,
+          )?.title
         : undefined,
     }));
     return { modified, removed, added };
@@ -129,7 +136,10 @@ export class AdminComponent implements OnDestroy {
     const service = this.services[event.serviceIndex];
     const item = service?.list[event.itemIndex];
     if (!item) return;
-    this.deleteTarget = { label: item.title, childCount: item.list?.length ?? 0 };
+    this.deleteTarget = {
+      label: item.title,
+      childCount: item.list?.length ?? 0,
+    };
     this.pendingDelete = () => {
       this.removedIds.push(item.id);
       item.list?.forEach((child) => this.removedIds.push(child.id));
@@ -138,7 +148,11 @@ export class AdminComponent implements OnDestroy {
     this.showDeleteDialog = true;
   }
 
-  onRemoveChild(event: { serviceIndex: number; parentIndex: number; childIndex: number }) {
+  onRemoveChild(event: {
+    serviceIndex: number;
+    parentIndex: number;
+    childIndex: number;
+  }) {
     const parent = this.services[event.serviceIndex]?.list[event.parentIndex];
     if (!parent?.list) return;
     const child = parent.list[event.childIndex];
@@ -162,7 +176,12 @@ export class AdminComponent implements OnDestroy {
     this.pendingDelete = null;
   }
 
-  onAddConfirm(data: { groupIndex: number; parentId: string | null; title: string; price: string }) {
+  onAddConfirm(data: {
+    groupIndex: number;
+    parentId: string | null;
+    title: string;
+    price: string;
+  }) {
     const id = `custom-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     const newCustom: CustomItem = {
       id,
@@ -171,10 +190,17 @@ export class AdminComponent implements OnDestroy {
       title: data.title,
       price: data.price,
     };
-    const newItem: ServiceListItemWithId = { id, title: data.title, price: data.price, editable: true };
+    const newItem: ServiceListItemWithId = {
+      id,
+      title: data.title,
+      price: data.price,
+      editable: true,
+    };
     this.customItems.push(newCustom);
     if (data.parentId) {
-      const parent = this.services[data.groupIndex].list.find((item) => item.id === data.parentId);
+      const parent = this.services[data.groupIndex].list.find(
+        (item) => item.id === data.parentId,
+      );
       if (parent) parent.list = [...(parent.list ?? []), newItem];
     } else {
       this.services[data.groupIndex].list.push(newItem);
@@ -196,9 +222,17 @@ export class AdminComponent implements OnDestroy {
     };
     this.pricingService
       .updateState(state)
-      .then(() => { this.statusMessage = 'Ціни успішно збережено.'; this.statusTone = 'success'; })
-      .catch(() => { this.statusMessage = 'Не вдалося зберегти. Спробуйте ще раз.'; this.statusTone = 'error'; })
-      .finally(() => { this.saving = false; });
+      .then(() => {
+        this.statusMessage = 'Ціни успішно збережено.';
+        this.statusTone = 'success';
+      })
+      .catch(() => {
+        this.statusMessage = 'Не вдалося зберегти. Спробуйте ще раз.';
+        this.statusTone = 'error';
+      })
+      .finally(() => {
+        this.saving = false;
+      });
   }
 
   ngOnDestroy() {

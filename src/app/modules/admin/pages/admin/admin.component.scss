@@ -16,7 +16,10 @@
   display: block;
   min-height: 100vh;
   background: var(--bg);
-  font-family: "Manrope", -apple-system, sans-serif;
+  font-family:
+    "Manrope",
+    -apple-system,
+    sans-serif;
   color: var(--ink);
 }
 
@@ -96,7 +99,11 @@
   white-space: nowrap;
   line-height: 1;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition: transform 0.18s, box-shadow 0.18s, background 0.18s, border-color 0.18s;
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s,
+    background 0.18s,
+    border-color 0.18s;
 
   &:hover {
     color: var(--ink);
@@ -107,7 +114,10 @@
   &--danger {
     color: var(--red);
     border-color: rgba(201, 68, 56, 0.25);
-    &:hover { background: var(--red-soft); border-color: rgba(201, 68, 56, 0.4); }
+    &:hover {
+      background: var(--red-soft);
+      border-color: rgba(201, 68, 56, 0.4);
+    }
   }
 }
 
@@ -128,7 +138,9 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
   white-space: nowrap;
   line-height: 1;
-  transition: box-shadow 0.18s, transform 0.18s;
+  transition:
+    box-shadow 0.18s,
+    transform 0.18s;
 
   &:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.13);
@@ -159,14 +171,18 @@
     background: rgba(47, 122, 106, 0.1);
     color: #1b574b;
     border: 1px solid rgba(47, 122, 106, 0.22);
-    .alert-dot { background: var(--teal); }
+    .alert-dot {
+      background: var(--teal);
+    }
   }
 
   &--error {
     background: rgba(201, 68, 56, 0.08);
     color: #943530;
     border: 1px solid rgba(201, 68, 56, 0.2);
-    .alert-dot { background: var(--red); }
+    .alert-dot {
+      background: var(--red);
+    }
   }
 }
 
@@ -198,7 +214,11 @@
   background: rgba(13, 28, 27, 0.05);
   margin-bottom: 4px;
 
-  svg { width: 22px; height: 22px; color: var(--muted); }
+  svg {
+    width: 22px;
+    height: 22px;
+    color: var(--muted);
+  }
 }
 
 .login-panel h2 {
@@ -219,17 +239,32 @@
 // ─── Animations ───────────────────────────────────────────────────────────────
 
 @keyframes slide-down {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 // ─── Responsive ───────────────────────────────────────────────────────────────
 
 @media (max-width: 640px) {
-  .admin-shell { padding: 28px 16px 64px; gap: 16px; }
+  .admin-shell {
+    padding: 28px 16px 64px;
+    gap: 16px;
+  }
 }

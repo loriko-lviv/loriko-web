@@ -8,7 +8,12 @@
     <div class="dialog-header">
       <div class="review-header-left">
         <div class="review-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+          >
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
             <circle cx="12" cy="12" r="3"></circle>
           </svg>
@@ -16,14 +21,23 @@
         <div>
           <h3 id="review-dialog-title" class="dialog-title">Огляд змін</h3>
           <p class="review-subtitle" *ngIf="hasChanges">
-            {{ totalChanges }}&nbsp;{{ totalChanges === 1 ? 'зміна' : totalChanges < 5 ? 'зміни' : 'змін' }}
+            {{ totalChanges }}&nbsp;{{
+              totalChanges === 1 ? "зміна" : totalChanges < 5 ? "зміни" : "змін"
+            }}
             готові до збереження
           </p>
-          <p class="review-subtitle" *ngIf="!hasChanges">Жодних змін не виявлено</p>
+          <p class="review-subtitle" *ngIf="!hasChanges">
+            Жодних змін не виявлено
+          </p>
         </div>
       </div>
       <button class="dialog-close" (click)="close.emit()" aria-label="Закрити">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
@@ -33,7 +47,12 @@
     <div class="dialog-body review-body">
       <!-- No changes -->
       <div *ngIf="!hasChanges" class="review-empty">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <svg
+          viewBox="0 0 48 48"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+        >
           <circle cx="24" cy="24" r="18"></circle>
           <path d="M16 24l6 6 10-12"></path>
         </svg>
@@ -44,17 +63,27 @@
       <div *ngIf="review.modified.length > 0" class="review-section">
         <div class="review-section__header review-section__header--modified">
           <svg viewBox="0 0 16 16" fill="currentColor">
-            <path d="M12.146 1.146a.5.5 0 01.708 0l2 2a.5.5 0 010 .708l-9 9a.5.5 0 01-.212.13l-3 1a.5.5 0 01-.631-.63l1-3a.5.5 0 01.13-.213l9-9z"/>
+            <path
+              d="M12.146 1.146a.5.5 0 01.708 0l2 2a.5.5 0 010 .708l-9 9a.5.5 0 01-.212.13l-3 1a.5.5 0 01-.631-.63l1-3a.5.5 0 01.13-.213l9-9z"
+            />
           </svg>
           Змінені ціни
-          <span class="review-section__count">{{ review.modified.length }}</span>
+          <span class="review-section__count">{{
+            review.modified.length
+          }}</span>
         </div>
         <div class="review-rows">
           <div *ngFor="let item of review.modified" class="review-row">
             <span class="review-row__title">{{ item.title }}</span>
             <span class="review-row__diff">
               <span class="diff-old">{{ item.oldPrice }}&nbsp;грн</span>
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" class="diff-arrow">
+              <svg
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                class="diff-arrow"
+              >
                 <line x1="3" y1="8" x2="13" y2="8"></line>
                 <polyline points="9 4 13 8 9 12"></polyline>
               </svg>
@@ -68,7 +97,9 @@
       <div *ngIf="review.added.length > 0" class="review-section">
         <div class="review-section__header review-section__header--added">
           <svg viewBox="0 0 16 16" fill="currentColor">
-            <path d="M8 1.5a.5.5 0 01.5.5v5.5H14a.5.5 0 010 1H8.5V14a.5.5 0 01-1 0V8.5H2a.5.5 0 010-1h5.5V2a.5.5 0 01.5-.5z"/>
+            <path
+              d="M8 1.5a.5.5 0 01.5.5v5.5H14a.5.5 0 010 1H8.5V14a.5.5 0 01-1 0V8.5H2a.5.5 0 010-1h5.5V2a.5.5 0 01.5-.5z"
+            />
           </svg>
           Нові позиції
           <span class="review-section__count">{{ review.added.length }}</span>
@@ -77,7 +108,9 @@
           <div *ngFor="let item of review.added" class="review-row">
             <span class="review-row__title">
               {{ item.title }}
-              <span class="review-row__meta" *ngIf="item.parentTitle">&nbsp;→ {{ item.parentTitle }}</span>
+              <span class="review-row__meta" *ngIf="item.parentTitle"
+                >&nbsp;→ {{ item.parentTitle }}</span
+              >
               <span class="review-row__group">{{ item.groupName }}</span>
             </span>
             <span class="diff-new">{{ item.price }}&nbsp;грн</span>
@@ -89,13 +122,16 @@
       <div *ngIf="review.removed.length > 0" class="review-section">
         <div class="review-section__header review-section__header--removed">
           <svg viewBox="0 0 16 16" fill="currentColor">
-            <path d="M2 8a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11A.5.5 0 012 8z"/>
+            <path d="M2 8a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11A.5.5 0 012 8z" />
           </svg>
           Видалені позиції
           <span class="review-section__count">{{ review.removed.length }}</span>
         </div>
         <div class="review-rows">
-          <div *ngFor="let item of review.removed" class="review-row review-row--removed">
+          <div
+            *ngFor="let item of review.removed"
+            class="review-row review-row--removed"
+          >
             <span class="review-row__title">{{ item.title }}</span>
             <span class="diff-removed">видалено</span>
           </div>
@@ -104,10 +140,24 @@
     </div>
 
     <div class="dialog-footer">
-      <button class="btn-ghost" (click)="close.emit()">Продовжити редагування</button>
-      <button class="btn-primary" (click)="save.emit()" [disabled]="!hasChanges">
-        <svg class="btn-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"></path>
+      <button class="btn-ghost" (click)="close.emit()">
+        Продовжити редагування
+      </button>
+      <button
+        class="btn-primary"
+        (click)="save.emit()"
+        [disabled]="!hasChanges"
+      >
+        <svg
+          class="btn-icon-svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"
+          ></path>
           <polyline points="17 21 17 13 7 13 7 21"></polyline>
           <polyline points="7 3 7 8 15 8"></polyline>
         </svg>

@@ -1,4 +1,4 @@
-@import '../../dialog';
+@import "../../dialog";
 
 // ─── Danger variant ───────────────────────────────────────────────────────────
 
@@ -20,7 +20,10 @@
   background: rgba(201, 68, 56, 0.1);
   color: var(--red);
 
-  svg { width: 20px; height: 20px; }
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 .del-title {
@@ -81,6 +84,13 @@
 }
 
 @media (max-width: 640px) {
-  .dialog-card { border-radius: 16px; }
-  .dialog-body, .dialog-header, .dialog-footer { padding-left: 18px; padding-right: 18px; }
+  .dialog-card {
+    border-radius: 16px;
+  }
+  .dialog-body,
+  .dialog-header,
+  .dialog-footer {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
 }

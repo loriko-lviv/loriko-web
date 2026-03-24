@@ -64,7 +64,10 @@
   white-space: nowrap;
   line-height: 1;
   box-shadow: 0 4px 12px rgba(47, 122, 106, 0.3);
-  transition: background 0.18s, box-shadow 0.18s, transform 0.18s;
+  transition:
+    background 0.18s,
+    box-shadow 0.18s,
+    transform 0.18s;
 
   &:hover {
     background: #236457;
@@ -72,7 +75,10 @@
     transform: translateY(-1px);
   }
 
-  &--sm { padding: 8px 16px; font-size: 0.85rem; }
+  &--sm {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
 }
 
 .btn-review {
@@ -91,7 +97,11 @@
   cursor: pointer;
   line-height: 1;
   white-space: nowrap;
-  transition: background 0.18s, border-color 0.18s, transform 0.18s, box-shadow 0.18s;
+  transition:
+    background 0.18s,
+    border-color 0.18s,
+    transform 0.18s,
+    box-shadow 0.18s;
 
   &:hover {
     background: rgba(47, 122, 106, 0.18);
@@ -100,7 +110,11 @@
     box-shadow: 0 4px 12px rgba(47, 122, 106, 0.2);
   }
 
-  &:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+  }
 }
 
 .review-badge {
@@ -180,7 +194,7 @@
   transition: color 0.18s;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -1px;
     left: 0;
@@ -192,12 +206,19 @@
     transition: transform 0.22s ease;
   }
 
-  &:hover { color: var(--ink); }
+  &:hover {
+    color: var(--ink);
+  }
 
   &--active {
     color: var(--ink);
-    &::after { transform: scaleX(1); }
-    .tab-count { background: var(--ink); color: #fff; }
+    &::after {
+      transform: scaleX(1);
+    }
+    .tab-count {
+      background: var(--ink);
+      color: #fff;
+    }
   }
 }
 
@@ -213,12 +234,16 @@
   font-weight: 700;
   background: rgba(13, 28, 27, 0.07);
   color: var(--muted);
-  transition: background 0.18s, color 0.18s;
+  transition:
+    background 0.18s,
+    color 0.18s;
 }
 
 // ─── Price List ───────────────────────────────────────────────────────────────
 
-.price-list { min-height: 180px; }
+.price-list {
+  min-height: 180px;
+}
 
 .group-header {
   display: flex;
@@ -228,7 +253,9 @@
   background: rgba(13, 28, 27, 0.025);
   border-bottom: 1px solid var(--line);
 
-  &:hover .btn-delete { opacity: 1; }
+  &:hover .btn-delete {
+    opacity: 1;
+  }
 
   &__title {
     font-weight: 700;
@@ -247,20 +274,29 @@
   border-bottom: 1px solid var(--line);
   transition: background 0.14s;
 
-  &:last-child { border-bottom: none; }
+  &:last-child {
+    border-bottom: none;
+  }
 
   &:hover {
     background: rgba(13, 28, 27, 0.018);
-    .btn-delete { opacity: 1; }
+    .btn-delete {
+      opacity: 1;
+    }
   }
 
   &--child {
     padding-left: 40px;
     background: rgba(13, 28, 27, 0.01);
-    .row-title { font-size: 0.87rem; color: var(--ink-60); }
+    .row-title {
+      font-size: 0.87rem;
+      color: var(--ink-60);
+    }
   }
 
-  &--muted .row-title { color: var(--muted); }
+  &--muted .row-title {
+    color: var(--muted);
+  }
 }
 
 .row-title {
@@ -294,7 +330,10 @@
   color: var(--ink);
   background: var(--bg);
   text-align: right;
-  transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
+  transition:
+    border-color 0.18s,
+    box-shadow 0.18s,
+    background 0.18s;
 
   &:focus {
     outline: none;
@@ -332,11 +371,22 @@
   border-radius: 7px;
   opacity: 0;
   flex-shrink: 0;
-  transition: color 0.14s, background 0.14s, opacity 0.14s;
+  transition:
+    color 0.14s,
+    background 0.14s,
+    opacity 0.14s;
 
-  svg { width: 14px; height: 14px; pointer-events: none; }
+  svg {
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+  }
 
-  &:hover { color: var(--red); background: var(--red-soft); opacity: 1 !important; }
+  &:hover {
+    color: var(--red);
+    background: var(--red-soft);
+    opacity: 1 !important;
+  }
 }
 
 // ─── Empty State ──────────────────────────────────────────────────────────────
@@ -351,13 +401,24 @@
   color: var(--muted);
   text-align: center;
 
-  svg { width: 44px; height: 44px; opacity: 0.25; }
-  p   { font-size: 0.92rem; margin: 0; }
+  svg {
+    width: 44px;
+    height: 44px;
+    opacity: 0.25;
+  }
+  p {
+    font-size: 0.92rem;
+    margin: 0;
+  }
 }
 
 // ─── Animations ───────────────────────────────────────────────────────────────
 
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 // ─── Responsive ───────────────────────────────────────────────────────────────
 
@@ -369,20 +430,39 @@
   }
 
   .toolbar-actions {
-    .btn-add { flex: 1; }
+    .btn-add {
+      flex: 1;
+    }
   }
 
   .tabs {
     overflow-x: auto;
     scrollbar-width: none;
-    &::-webkit-scrollbar { display: none; }
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
-  .tab-btn { padding: 12px 14px; flex-shrink: 0; }
+  .tab-btn {
+    padding: 12px 14px;
+    flex-shrink: 0;
+  }
 
-  .price-row { padding: 12px 16px; flex-wrap: wrap; gap: 10px; }
-  .price-row--child { padding-left: 28px; }
-  .price-input { width: 80px; }
-  .btn-delete { opacity: 0.5; }
-  .group-header .btn-delete { opacity: 0.5; }
+  .price-row {
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .price-row--child {
+    padding-left: 28px;
+  }
+  .price-input {
+    width: 80px;
+  }
+  .btn-delete {
+    opacity: 0.5;
+  }
+  .group-header .btn-delete {
+    opacity: 0.5;
+  }
 }

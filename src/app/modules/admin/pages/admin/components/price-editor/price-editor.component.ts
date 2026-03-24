@@ -17,8 +17,15 @@ export class AdminPriceEditorComponent {
   @Output() activeTabChange = new EventEmitter<number>();
   @Output() openAdd = new EventEmitter<void>();
   @Output() openReview = new EventEmitter<void>();
-  @Output() removeTopLevel = new EventEmitter<{ serviceIndex: number; itemIndex: number }>();
-  @Output() removeChild = new EventEmitter<{ serviceIndex: number; parentIndex: number; childIndex: number }>();
+  @Output() removeTopLevel = new EventEmitter<{
+    serviceIndex: number;
+    itemIndex: number;
+  }>();
+  @Output() removeChild = new EventEmitter<{
+    serviceIndex: number;
+    parentIndex: number;
+    childIndex: number;
+  }>();
 
   get tabNames(): string[] {
     return this.services.map((s) => s.type);
