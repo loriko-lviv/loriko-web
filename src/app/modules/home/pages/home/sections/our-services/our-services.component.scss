@@ -1,47 +1,504 @@
-:host {
+// ─────────────────────────────────────────────────────────────
+// Our Services — premium redesign
+// ─────────────────────────────────────────────────────────────
 
-  .services {
-    .service {
-      .service-item, .type {
-        padding: 15px 10px;
-        border-bottom: 1px solid #d4d4d4;
-        font-size: 16px;
+$green:    #077506;
+$green-lt: #f0fdf4;
+$border:   #e5e7eb;
+$text-1:   #111827;
+$text-2:   #6b7280;
+$text-3:   #9ca3af;
+$radius:   16px;
 
-        p {
-          margin: 0;
-        }
-      }
+:host { display: block; }
 
-      .service-item {
-        &:last-child {
-          border-bottom: none;
-        }
-      }
+.svc {
+  padding: 48px 16px 64px;
+  max-width: 900px;
+  margin: 0 auto;
 
-      .type {
-        border-top: 1px solid #d4d4d4;
-        font-size: 18px;
-        margin: 0;
-        background: #ebebeb;
-      }
-    }
+  // ── Search ────────────────────────────────────────────────
 
-    ul {
-      max-width: 400px;
+  &__search-wrap {
+    margin: 36px auto 0;
+    max-width: 560px;
+  }
 
-      li {
-        font-size: 16px;
-        font-weight: 300;
-        margin: 10px 0;
-        border-bottom: 1px solid #cbcbcb;
-        padding-bottom: 10px;
+  &__search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1.5px solid $border;
+    border-radius: 50px;
+    padding: 0 18px;
+    transition: border-color 0.2s, box-shadow 0.2s;
 
-        &:last-child {
-          border-bottom: 0;
-          margin-bottom: 0;
-          padding-bottom: 0;
-        }
-      }
+    &:focus-within,
+    &--active {
+      border-color: $green;
+      box-shadow: 0 0 0 3px rgba($green, 0.12);
     }
   }
+
+  &__search-icon {
+    width: 18px;
+    height: 18px;
+    color: $text-3;
+    flex-shrink: 0;
+    transition: color 0.2s;
+
+    .svc__search:focus-within & { color: $green; }
+  }
+
+  &__search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 14px 12px;
+    font-family: inherit;
+    font-size: 15px;
+    color: $text-1;
+    box-shadow: none;
+
+    &::placeholder { color: $text-3; }
+  }
+
+  &__search-clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: #f3f4f6;
+    border-radius: 50%;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s;
+
+    svg { width: 14px; height: 14px; color: $text-2; }
+
+    &:hover { background: #e5e7eb; }
+  }
+
+  &__search-hint {
+    text-align: center;
+    margin: 10px 0 0;
+    font-size: 13px;
+    color: $text-2;
+
+    strong { color: $text-1; }
+  }
+
+  // ── Tabs ──────────────────────────────────────────────────
+
+  &__tabs {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    background: #fafafa;
+    border-bottom: 1.5px solid $border;
+  }
+
+  &__tab {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 12px 30px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    color: $text-2;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    transition: color 0.2s;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: $green;
+      transform: scaleX(0);
+      border-radius: 2px 2px 0 0;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &:hover { color: $text-1; }
+
+    &--active {
+      color: $green;
+      &::after { transform: scaleX(1); }
+    }
+  }
+
+  &__tab-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 10px;
+    background: $green;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+
+    &--zero {
+      background: #e5e7eb;
+      color: $text-2;
+    }
+  }
+
+  // ── Card wrapper (unified border) ───────────────────────────
+
+  &__card {
+    margin-top: 36px;
+    border: 1.5px solid $border;
+    border-radius: $radius;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    background: #fff;
+  }
+
+  // ── Panel shell ───────────────────────────────────────────
+
+  &__panel-shell {
+    background: #fff;
+    min-height: 120px;
+  }
+
+  &__panel {
+    animation: panelFadeIn 0.2s ease;
+  }
+
+  // ── Price rows ────────────────────────────────────────────
+
+  &__row {
+    display: flex;
+    align-items: baseline;
+    padding: 15px 32px;
+    border-bottom: 1px solid #f3f4f6;
+    transition: background 0.14s ease;
+
+    &:last-child { border-bottom: none; }
+    &:hover { background: $green-lt; }
+
+    &--child {
+      padding: 10px 32px 10px 48px;
+      border-bottom: none;
+
+      .svc__row-title {
+        font-size: 14px;
+        font-weight: 400;
+        color: #4b5563;
+      }
+      .svc__row-price { font-size: 14px; }
+    }
+  }
+
+  &__row-title {
+    flex: 1;
+    min-width: 0;
+    font-size: 15px;
+    font-weight: 500;
+    color: $text-1;
+    line-height: 1.5;
+    padding-right: 6px;
+  }
+
+  &__row-ruler {
+    flex: 1 0 24px;
+    height: 0;
+    border-bottom: 1.5px dotted #d1d5db;
+    margin: 0 8px 6px;
+  }
+
+  &__row-price {
+    flex: 0 0 auto;
+    font-size: 15px;
+    font-weight: 700;
+    color: $green;
+    white-space: nowrap;
+  }
+
+  // ── Group blocks ──────────────────────────────────────────
+
+  &__group {
+    border-bottom: 1px solid #eef0f3;
+
+    &:last-child { border-bottom: none; }
+
+    .svc__row {
+      border-bottom: none;
+      &:last-child { padding-bottom: 18px; }
+    }
+  }
+
+  &__group-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 32px 8px;
+
+    &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, $border, transparent);
+    }
+  }
+
+  &__group-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: $text-3;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+  }
+
+  // ── Empty state ───────────────────────────────────────────
+
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 56px 24px;
+    text-align: center;
+    gap: 16px;
+
+    svg {
+      width: 64px;
+      height: 64px;
+      opacity: 0.5;
+    }
+
+    p {
+      margin: 0;
+      font-size: 15px;
+      color: $text-2;
+      line-height: 1.6;
+    }
+  }
+
+  &__empty-reset {
+    padding: 9px 24px;
+    border: 1.5px solid $border;
+    border-radius: 50px;
+    background: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: $text-1;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+
+    &:hover {
+      border-color: $green;
+      background: $green-lt;
+      color: $green;
+    }
+  }
+}
+
+// ── Animation ─────────────────────────────────────────────────
+
+@keyframes panelFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ── Responsive ────────────────────────────────────────────────
+
+@media (max-width: 600px) {
+  .svc {
+    padding: 32px 0 48px;
+
+    &__tab {
+      padding: 11px 16px;
+      font-size: 14px;
+    }
+
+    &__row {
+      padding: 13px 16px;
+
+      &--child { padding-left: 24px; }
+
+      &-title { font-size: 14px; }
+      &-price { font-size: 14px; }
+    }
+
+    &__group-header { padding: 16px 16px 6px; }
+  }
+}
+
+// ─── Tabs ────────────────────────────────────────────────────────────────────
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  border-bottom: 2px solid #e5e7eb;
+  margin: 32px 0 0;
+}
+
+.tab {
+  position: relative;
+  padding: 13px 44px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: #6b7280;
+  background: none;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: color 0.22s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #077506;
+    transform: scaleX(0);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:hover { color: #374151; }
+
+  &--active {
+    color: #077506;
+
+    &::after { transform: scaleX(1); }
+  }
+}
+
+// ─── Panel ───────────────────────────────────────────────────────────────────
+
+.panel-wrap {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-top: none;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.panel {
+  display: none;
+
+  &--active { display: block; }
+}
+
+// ─── Price rows ──────────────────────────────────────────────────────────────
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+  padding: 14px 28px;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background 0.15s ease;
+
+  &:last-child { border-bottom: none; }
+
+  &:hover { background: #f0fdf4; }
+
+  &--sub {
+    padding: 10px 28px 10px 40px;
+
+    .price-row__title {
+      color: #4b5563;
+      font-weight: 400;
+      font-size: 14px;
+    }
+
+    .price-row__amount { font-size: 14px; }
+  }
+
+  &__title {
+    flex: 1 1 0%;
+    min-width: 0;
+    font-size: 15px;
+    font-weight: 500;
+    color: #111827;
+    line-height: 1.45;
+    padding-right: 4px;
+  }
+
+  &__dots {
+    flex: 1 0 20px;
+    height: 0;
+    border-bottom: 1.5px dotted #d1d5db;
+    margin: 0 10px 5px;
+  }
+
+  &__amount {
+    flex: 0 0 auto;
+    font-size: 15px;
+    font-weight: 600;
+    color: #077506;
+    white-space: nowrap;
+    padding-left: 4px;
+  }
+}
+
+// ─── Group blocks ────────────────────────────────────────────────────────────
+
+.price-group {
+  border-bottom: 1px solid #e9ebee;
+
+  &:last-child { border-bottom: none; }
+
+  &__header {
+    padding: 18px 28px 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .price-row {
+    border-bottom: none;
+
+    &:last-child { padding-bottom: 16px; }
+  }
+}
+
+// ─── Responsive ──────────────────────────────────────────────────────────────
+
+@media (max-width: 600px) {
+  .services-section { padding: 32px 0; }
+
+  .tab {
+    padding: 11px 20px;
+    font-size: 14px;
+  }
+
+  .price-row {
+    padding: 12px 16px;
+
+    &--sub { padding-left: 24px; }
+
+    &__title { font-size: 14px; }
+
+    &__amount { font-size: 14px; }
+  }
+
+  .price-group__header { padding: 14px 16px 4px; }
 }

@@ -1,26 +1,98 @@
-<section class="px-2 py-8 md:p-8">
+<section class="svc">
   <app-section-title [title]="'Наші послуги'"></app-section-title>
-  <div class="flex flex-wrap justify-evenly gap-8">
-    <div class="services">
-      <div class="service" *ngFor="let service of services">
-        <h2 class="type">{{service.type}}</h2>
-        <div class="service-item flex-col" *ngFor="let item of service.list">
-          <div class="service-wrapper flex justify-between">
-            <span class="flex-[1_1_70%]">{{item.title}}</span>
-            <span class="price flex-[1_1_30%] flex justify-end whitespace-nowrap" *ngIf="item.price">{{item.price}}
-              грн</span>
+
+  <!-- ── Search ────────────────────────────── -->
+  <div class="svc__search-wrap">
+    <div class="svc__search" [class.svc__search--active]="query">
+      <svg class="svc__search-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M13 13l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <input
+        class="svc__search-input"
+        type="text"
+        placeholder="Пошук послуги…"
+        autocomplete="off"
+        [value]="query"
+        (input)="onSearch($any($event.target).value)"
+        aria-label="Пошук послуги"
+      />
+      <button
+        *ngIf="query"
+        class="svc__search-clear"
+        type="button"
+        aria-label="Очистити"
+        (click)="clearSearch()"
+      >
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <p class="svc__search-hint" *ngIf="query">
+      <ng-container *ngIf="totalMatches > 0">Знайдено: <strong>{{ totalMatches }}</strong></ng-container>
+      <ng-container *ngIf="totalMatches === 0">Нічого не знайдено</ng-container>
+    </p>
+  </div>
+
+  <!-- ── Card: tabs + panel ─────────────────── -->
+  <div class="svc__card">
+    <div class="svc__tabs" role="tablist">
+      <button
+        class="svc__tab"
+        role="tab"
+        type="button"
+        *ngFor="let group of filteredGroups; let i = index"
+        [class.svc__tab--active]="activeTab === i"
+        [attr.aria-selected]="activeTab === i"
+        (click)="selectTab(i)"
+      >
+        <span class="svc__tab-label">{{ group.type }}</span>
+        <span class="svc__tab-badge" *ngIf="query && group.matchCount > 0">{{ group.matchCount }}</span>
+        <span class="svc__tab-badge svc__tab-badge--zero" *ngIf="query && group.matchCount === 0">0</span>
+      </button>
+    </div>
+
+    <div class="svc__panel-shell">
+    <ng-container *ngIf="activeGroup && activeGroup.items.length > 0; else emptyState">
+      <div class="svc__panel">
+
+        <ng-container *ngFor="let item of activeGroup.items">
+
+          <!-- Group item (Ботулінотерапія, Плазмотерапія…) -->
+          <div class="svc__group" *ngIf="item.isGroup">
+            <div class="svc__group-header">
+              <span class="svc__group-label">{{ item.title }}</span>
+            </div>
+            <div class="svc__row svc__row--child" *ngFor="let child of item.children">
+              <span class="svc__row-title">{{ child.title }}</span>
+              <span class="svc__row-ruler" aria-hidden="true"></span>
+              <span class="svc__row-price">{{ child.price }}&nbsp;грн</span>
+            </div>
           </div>
-          <div class="price-list pl-3 mt-6" *ngIf="item.list">
-            <ul class="w-full !max-w-[100%]">
-              <li *ngFor="let attachedItem of item.list" class="flex">
-                <span class="flex-[1_1_70%] font-[400]">{{attachedItem.title}}</span>
-                <span class="price flex-[1_1_30%] flex font-[400] justify-end whitespace-nowrap"
-                      *ngIf="attachedItem.price">{{attachedItem.price}} грн</span>
-              </li>
-            </ul>
+
+          <!-- Leaf item -->
+          <div class="svc__row" *ngIf="!item.isGroup && item.price">
+            <span class="svc__row-title">{{ item.title }}</span>
+            <span class="svc__row-ruler" aria-hidden="true"></span>
+            <span class="svc__row-price">{{ item.price }}&nbsp;грн</span>
           </div>
-        </div>
+
+        </ng-container>
       </div>
+    </ng-container>
+
+    <ng-template #emptyState>
+      <div class="svc__empty">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <circle cx="28" cy="28" r="18" stroke="#d1d5db" stroke-width="3"/>
+          <path d="M40 40l12 12" stroke="#d1d5db" stroke-width="3" stroke-linecap="round"/>
+          <path d="M22 28h12M28 22v12" stroke="#9ca3af" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <p>За запитом <strong>«{{ query }}»</strong> нічого не знайдено</p>
+        <button class="svc__empty-reset" type="button" (click)="clearSearch()">Скинути пошук</button>
+      </div>
+    </ng-template>
     </div>
   </div>
 </section>
